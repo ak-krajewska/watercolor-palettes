@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Palette Labels</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: white;
+    padding: 10mm;
+}
+h2 {
+    font-size: 9pt;
+    font-weight: 600;
+    color: #888;
+    margin: 6mm 0 3mm;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    break-after: avoid;
+}
+h2:first-child { margin-top: 0; }
+.palette-section {
+    margin-bottom: 8mm;
+}
+.card-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2mm;
+    margin-bottom: 2mm;
+}
+.card {
+    width: 30mm;
+    height: 19mm;
+    border: 0.3pt solid #bbb;
+    border-radius: 1mm;
+    padding: 1.5mm;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    page-break-inside: avoid;
+}
+.card-name {
+    font-size: 6.5pt;
+    font-weight: 700;
+    line-height: 1.25;
+}
+.card-brand {
+    font-size: 5.5pt;
+    color: #666;
+    line-height: 1.2;
+}
+.card-pigments {
+    font-size: 5pt;
+    font-family: monospace;
+    color: #444;
+    line-height: 1.2;
+    margin-top: auto;
+}
+@media print {
+    body { padding: 8mm; }
+    h2 { color: #999; }
+    .card { border-color: #ccc; }
+}
+</style>
+</head>
+<body>
+<div class="palette-section">
+<h2>Default — Small Palette</h2>
+<div class="card-row">
+<div class="card" style="width:19mm;height:30mm;">
+  <div class="card-name">Primary White</div>
+  <div class="card-brand">Holbein</div>
+  <div class="card-pigments">PW6</div>
+</div>
+<div class="card" style="width:19mm;height:30mm;">
+  <div class="card-name">Cadmium Yellow</div>
+  <div class="card-brand">W&N</div>
+  <div class="card-pigments">PY35, PO20</div>
+</div>
+<div class="card" style="width:19mm;height:30mm;">
+  <div class="card-name">Permanent Rose</div>
+  <div class="card-brand">W&N</div>
+  <div class="card-pigments">PV19</div>
+</div>
+<div class="card" style="width:19mm;height:30mm;">
+  <div class="card-name">Cadmium Red</div>
+  <div class="card-brand">W&N</div>
+  <div class="card-pigments">PR108</div>
+</div>
+<div class="card" style="width:19mm;height:30mm;">
+  <div class="card-name">Alizarin Crimson</div>
+  <div class="card-brand">W&N</div>
+  <div class="card-pigments">PR83</div>
+</div>
+<div class="card" style="width:19mm;height:30mm;">
+  <div class="card-name">Ultramarine (Green Shade)</div>
+  <div class="card-brand">W&N</div>
+  <div class="card-pigments">PB29</div>
+</div>
+<div class="card" style="width:19mm;height:30mm;">
+  <div class="card-name">Cerulean</div>
+  <div class="card-brand">CfM</div>
+  <div class="card-pigments">PB15</div>
+</div>
+</div>
+<div class="card-row">
+<div class="card" style="width:19mm;height:30mm;">
+  <div class="card-name">Winsor Violet (Dioxazine)</div>
+  <div class="card-brand">W&N</div>
+  <div class="card-pigments">PV23</div>
+</div>
+<div class="card" style="width:19mm;height:30mm;">
+  <div class="card-name">Cobalt Sea Blue</div>
+  <div class="card-brand">Szmal</div>
+  <div class="card-pigments">PB28</div>
+</div>
+<div class="card" style="width:19mm;height:30mm;">
+  <div class="card-name">Permanent Sap Green</div>
+  <div class="card-brand">W&N</div>
+  <div class="card-pigments">PG36, PY110</div>
+</div>
+<div class="card" style="width:19mm;height:30mm;">
+  <div class="card-name">Yellow Ochre</div>
+  <div class="card-brand">W&N</div>
+  <div class="card-pigments">PY43</div>
+</div>
+<div class="card" style="width:19mm;height:30mm;">
+  <div class="card-name">Burnt Sienna</div>
+  <div class="card-brand">W&N</div>
+  <div class="card-pigments">PR101</div>
+</div>
+<div class="card" style="width:19mm;height:30mm;">
+  <div class="card-name">Cyprus Burnt Umber</div>
+  <div class="card-brand">Szmal</div>
+  <div class="card-pigments">PBr7</div>
+</div>
+<div class="card" style="width:19mm;height:30mm;">
+  <div class="card-name">Indigo</div>
+  <div class="card-brand">CfM</div>
+  <div class="card-pigments">PB66</div>
+</div>
+</div>
+</div>
+<div class="palette-section">
+<h2>Garden — Szmal Metal</h2>
+<div class="card-row">
+<div class="card" style="width:19mm;height:30mm;">
+  <div class="card-name">Primary White</div>
+  <div class="card-brand">Holbein</div>
+  <div class="card-pigments">PW6</div>
+</div>
+<div class="card" style="width:19mm;height:30mm;">
+  <div class="card-name">Cadmium Yellow</div>
+  <div class="card-brand">W&N</div>
+  <div class="card-pigments">PY35, PO20</div>
+</div>
+<div class="card" style="width:19mm;height:30mm;">
+  <div class="card-name">Quinacridone Magenta</div>
+  <div class="card-brand">Szmal</div>
+  <div class="card-pigments">PR122</div>
+</div>
+<div class="card" style="width:19mm;height:30mm;">
+  <div class="card-name">Cadmium Red</div>
+  <div class="card-brand">W&N</div>
+  <div class="card-pigments">PR108</div>
+</div>
+<div class="card" style="width:19mm;height:30mm;">
+  <div class="card-name">Pyrrole Red</div>
+  <div class="card-brand">Szmal</div>
+  <div class="card-pigments">PR254</div>
+</div>
+<div class="card" style="width:19mm;height:30mm;">
+  <div class="card-name">Winsor Violet (Dioxazine)</div>
+  <div class="card-brand">W&N</div>
+  <div class="card-pigments">PV23</div>
+</div>
+</div>
+<div class="card-row">
+<div class="card" style="width:19mm;height:30mm;">
+  <div class="card-name">Cobalt Cerulean Blue</div>
+  <div class="card-brand">Szmal</div>
+  <div class="card-pigments">PB36</div>
+</div>
+<div class="card" style="width:19mm;height:30mm;">
+  <div class="card-name">Phthalo Green (Blue Shade)</div>
+  <div class="card-brand">Szmal</div>
+  <div class="card-pigments">PG7</div>
+</div>
+<div class="card" style="width:19mm;height:30mm;">
+  <div class="card-name">Bamboo Green</div>
+  <div class="card-brand">Holbein</div>
+  <div class="card-pigments">PG36</div>
+</div>
+<div class="card" style="width:19mm;height:30mm;">
+  <div class="card-name">Yellow Ochre</div>
+  <div class="card-brand">W&N</div>
+  <div class="card-pigments">PY43</div>
+</div>
+<div class="card" style="width:19mm;height:30mm;">
+  <div class="card-name">Burnt Sienna</div>
+  <div class="card-brand">W&N</div>
+  <div class="card-pigments">PR101</div>
+</div>
+<div class="card" style="width:19mm;height:30mm;">
+  <div class="card-name">Burnt Umber</div>
+  <div class="card-brand">W&N</div>
+  <div class="card-pigments">PBr7, PR101, PY42</div>
+</div>
+</div>
+</div>
+<div class="palette-section">
+<h2>Urban Sketch — Yellow</h2>
+<div class="card-row">
+<div class="card" style="width:30mm;height:19mm;">
+  <div class="card-name">Indian Yellow</div>
+  <div class="card-brand">W&N</div>
+  <div class="card-pigments">PO62, PY139</div>
+</div>
+<div class="card" style="width:30mm;height:19mm;">
+  <div class="card-name">Yellow Ochre</div>
+  <div class="card-brand">W&N</div>
+  <div class="card-pigments">PY43</div>
+</div>
+<div class="card" style="width:30mm;height:19mm;">
+  <div class="card-name">Burnt Sienna</div>
+  <div class="card-brand">W&N</div>
+  <div class="card-pigments">PR101</div>
+</div>
+<div class="card" style="width:30mm;height:19mm;">
+  <div class="card-name">Winsor Violet (Dioxazine)</div>
+  <div class="card-brand">W&N</div>
+  <div class="card-pigments">PV23</div>
+</div>
+</div>
+<div class="card-row">
+<div class="card" style="width:30mm;height:19mm;">
+  <div class="card-name">Opera (Quinacridone Opera)</div>
+  <div class="card-brand">Holbein</div>
+  <div class="card-pigments">BV10, PR122</div>
+</div>
+<div class="card" style="width:30mm;height:19mm;">
+  <div class="card-name">Cherry Blossom Pink</div>
+  <div class="card-brand">Holbein</div>
+  <div class="card-pigments">PR233, PO73, PW6</div>
+</div>
+<div class="card" style="width:30mm;height:19mm;">
+  <div class="card-name">Davy's Grey</div>
+  <div class="card-brand">Holbein</div>
+  <div class="card-pigments">PBr7, PBk6, PW6</div>
+</div>
+<div class="card" style="width:30mm;height:19mm;">
+  <div class="card-name">Prussian Blue</div>
+  <div class="card-brand">W&N</div>
+  <div class="card-pigments">PB27</div>
+</div>
+</div>
+</div>
+<div class="palette-section">
+<h2>Cfm Floral — Yellow</h2>
+<div class="card-row">
+<div class="card" style="width:30mm;height:19mm;">
+  <div class="card-name">CfM Poppy</div>
+  <div class="card-brand">CfM</div>
+</div>
+<div class="card" style="width:30mm;height:19mm;">
+  <div class="card-name">French Vermilion</div>
+  <div class="card-brand">CfM</div>
+  <div class="card-pigments">PR4, PY1</div>
+</div>
+<div class="card" style="width:30mm;height:19mm;">
+  <div class="card-name">CfM Coral</div>
+  <div class="card-brand">CfM</div>
+</div>
+<div class="card" style="width:30mm;height:19mm;">
+  <div class="card-name">CfM Fuchsia</div>
+  <div class="card-brand">CfM</div>
+</div>
+</div>
+<div class="card-row">
+<div class="card" style="width:30mm;height:19mm;">
+  <div class="card-name">Lavender Blue Lake</div>
+  <div class="card-brand">CfM</div>
+  <div class="card-pigments">(CALCIUM_CARBONATE_BASE), PB29</div>
+</div>
+<div class="card" style="width:30mm;height:19mm;">
+  <div class="card-name">CfM Lupine</div>
+  <div class="card-brand">CfM</div>
+</div>
+<div class="card" style="width:30mm;height:19mm;">
+  <div class="card-name">Ultramarine Pink</div>
+  <div class="card-brand">CfM</div>
+  <div class="card-pigments">PV15</div>
+</div>
+<div class="card" style="width:30mm;height:19mm;">
+  <div class="card-name">Hot Pink</div>
+  <div class="card-brand">CfM</div>
+</div>
+</div>
+<div class="card-row">
+<div class="card" style="width:30mm;height:19mm;">
+  <div class="card-name">Oxalis</div>
+  <div class="card-brand">CfM</div>
+</div>
+<div class="card" style="width:30mm;height:19mm;">
+  <div class="card-name">CfM Meadow</div>
+  <div class="card-brand">CfM</div>
+</div>
+<div class="card" style="width:30mm;height:19mm;">
+  <div class="card-name">Tide Pool</div>
+  <div class="card-brand">CfM</div>
+</div>
+<div class="card" style="width:30mm;height:19mm;">
+  <div class="card-name">CfM Cypress Green</div>
+  <div class="card-brand">CfM</div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

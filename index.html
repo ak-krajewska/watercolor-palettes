@@ -1,0 +1,1400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Watercolor Palettes</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 14px;
+    color: #222;
+    background: #f9f7f4;
+    padding: 2rem;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+h1 { font-size: 1.6rem; margin-bottom: 0.25rem; }
+h2 { font-size: 1.2rem; margin-bottom: 0.75rem; border-bottom: 1px solid #ddd; padding-bottom: 0.4rem; }
+h3 { font-size: 1rem; margin: 1rem 0 0.4rem; }
+nav { margin-bottom: 2.5rem; }
+nav a { margin-right: 1rem; color: #666; text-decoration: none; font-size: 0.9rem; }
+nav a:hover { color: #222; }
+.subtitle { color: #888; font-size: 0.9rem; margin-bottom: 2rem; }
+section { margin-bottom: 3rem; }
+
+/* Palette pan grid */
+.palette-meta { color: #888; font-size: 0.85rem; margin-bottom: 1rem; }
+.pan-grid { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.5rem; }
+.pan-row { display: flex; gap: 0.5rem; }
+.pan {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 0.6rem 0.75rem;
+    width: 160px;
+    min-height: 70px;
+}
+.pan-name { font-weight: 600; font-size: 0.85rem; line-height: 1.3; }
+.pan-brand { color: #888; font-size: 0.75rem; margin-top: 0.2rem; }
+.pan-pigments { color: #555; font-size: 0.72rem; margin-top: 0.25rem; font-family: monospace; }
+.pan-notes { color: #e07030; font-size: 0.72rem; margin-top: 0.25rem; font-style: italic; }
+
+/* Palette notes */
+.palette-notes {
+    background: white;
+    border: 1px solid #e8e4df;
+    border-radius: 4px;
+    padding: 1.25rem 1.5rem;
+    font-size: 0.88rem;
+    line-height: 1.7;
+    max-width: 720px;
+}
+.palette-notes h1 { font-size: 1.1rem; margin-bottom: 0.75rem; }
+.palette-notes h2 { font-size: 0.95rem; margin-top: 1.25rem; }
+.palette-notes h3 { font-size: 0.88rem; }
+.palette-notes p { margin-bottom: 0.6rem; }
+.palette-notes ul, .palette-notes ol { padding-left: 1.25rem; margin-bottom: 0.6rem; }
+.palette-notes li { margin-bottom: 0.3rem; }
+.palette-notes table { border-collapse: collapse; width: 100%; margin-bottom: 0.75rem; }
+.palette-notes td, .palette-notes th { border: 1px solid #ddd; padding: 0.3rem 0.5rem; font-size: 0.82rem; }
+.palette-notes strong { font-weight: 600; }
+
+/* Inventory */
+.filters { display: flex; gap: 1.5rem; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; }
+.filters label { font-size: 0.88rem; color: #555; display: flex; align-items: center; gap: 0.4rem; }
+.filters select { font-size: 0.85rem; padding: 0.2rem 0.4rem; border: 1px solid #ccc; border-radius: 3px; }
+table { width: 100%; border-collapse: collapse; font-size: 0.83rem; background: white; }
+thead th { background: #f0ede8; text-align: left; padding: 0.5rem 0.6rem; font-weight: 600; position: sticky; top: 0; }
+tbody tr { border-bottom: 1px solid #eee; }
+tbody tr:hover { background: #faf8f5; }
+td { padding: 0.4rem 0.6rem; vertical-align: top; }
+.pigments { font-family: monospace; font-size: 0.78rem; color: #555; }
+tr.unused { background: #fffbf5; }
+tr.hidden { display: none; }
+.unused-badge { display: inline-block; font-size: 0.7rem; background: #f0e8d8; color: #a06020; border-radius: 3px; padding: 0.1rem 0.35rem; margin-left: 0.4rem; }
+</style>
+</head>
+<body>
+<h1>Watercolor Palettes</h1>
+<p class="subtitle">72 paints &mdash; 4 palettes</p>
+<nav>
+  <a href="#palette-default">Default</a>
+  <a href="#palette-garden">Garden</a>
+  <a href="#palette-urban-sketch">Urban Sketch</a>
+  <a href="#palette-cfm-floral">Cfm Floral</a>
+  <a href="#inventory">Inventory</a>
+</nav>
+
+<section class="palette" id="palette-default">
+<h2>Default</h2>
+<p class="palette-meta">Small Palette &mdash; 14 of 14 slots</p>
+<div class="pan-grid">
+<div class="pan-row">
+<div class="pan">
+<div class="pan-name">Primary White</div>
+<div class="pan-brand">Holbein</div>
+<div class="pan-pigments">PW6</div>
+</div>
+<div class="pan">
+<div class="pan-name">Cadmium Yellow</div>
+<div class="pan-brand">W&N</div>
+<div class="pan-pigments">PY35, PO20</div>
+</div>
+<div class="pan">
+<div class="pan-name">Permanent Rose</div>
+<div class="pan-brand">W&N</div>
+<div class="pan-pigments">PV19</div>
+</div>
+<div class="pan">
+<div class="pan-name">Cadmium Red</div>
+<div class="pan-brand">W&N</div>
+<div class="pan-pigments">PR108</div>
+</div>
+<div class="pan">
+<div class="pan-name">Alizarin Crimson</div>
+<div class="pan-brand">W&N</div>
+<div class="pan-pigments">PR83</div>
+</div>
+<div class="pan">
+<div class="pan-name">Ultramarine (Green Shade)</div>
+<div class="pan-brand">W&N</div>
+<div class="pan-pigments">PB29</div>
+</div>
+<div class="pan">
+<div class="pan-name">Cerulean</div>
+<div class="pan-brand">CfM</div>
+<div class="pan-pigments">PB15</div>
+</div>
+</div>
+<div class="pan-row">
+<div class="pan">
+<div class="pan-name">Winsor Violet (Dioxazine)</div>
+<div class="pan-brand">W&N</div>
+<div class="pan-pigments">PV23</div>
+</div>
+<div class="pan">
+<div class="pan-name">Cobalt Sea Blue</div>
+<div class="pan-brand">Szmal</div>
+<div class="pan-pigments">PB28</div>
+</div>
+<div class="pan">
+<div class="pan-name">Permanent Sap Green</div>
+<div class="pan-brand">W&N</div>
+<div class="pan-pigments">PG36, PY110</div>
+</div>
+<div class="pan">
+<div class="pan-name">Yellow Ochre</div>
+<div class="pan-brand">W&N</div>
+<div class="pan-pigments">PY43</div>
+</div>
+<div class="pan">
+<div class="pan-name">Burnt Sienna</div>
+<div class="pan-brand">W&N</div>
+<div class="pan-pigments">PR101</div>
+</div>
+<div class="pan">
+<div class="pan-name">Cyprus Burnt Umber</div>
+<div class="pan-brand">Szmal</div>
+<div class="pan-pigments">PBr7</div>
+</div>
+<div class="pan">
+<div class="pan-name">Indigo</div>
+<div class="pan-brand">CfM</div>
+<div class="pan-pigments">PB66</div>
+</div>
+</div>
+</div>
+</section>
+<div class="palette-notes"><h1>Default Palette — Notes &amp; Observations</h1>
+<h2>Primary Use Cases</h2>
+<ul>
+<li><strong>Plein air landscapes</strong> — San Francisco locations</li>
+<li><strong>Urban sketching</strong></li>
+<li><strong>Loose botanicals</strong> — usually painted alongside the landscape sessions: typically 3 sheets at once to resist overworking, with 2 landscape views and 1 whatever-is-at-my-feet plants</li>
+</ul>
+<p>This palette is optimized for working outdoors in SF, often doing multiple subjects in one session.</p>
+<h3>Priority hierarchy</h3>
+<p>Plein air landscapes carry the highest penalty for a wrong palette decision — if the hike to Mt Davidson reveals a missing color, that's a real loss. Urban sketching and cafe work are forgiving (a mediocre croissant sketch is fine). Botanicals painted at home are lowest stakes: the full collection is a few steps away.</p>
+<p>This means the default palette is correctly optimized for plein air first. The botanicals are underserved by it, but that's acceptable — a dedicated botanical palette is the right fix, not changing the defaults.</p>
+<h2>Indispensable</h2>
+<p><strong>Permanent Rose</strong> (W&amp;N, PV19) — can't live without it. One of the workhorses. Also the base for my go-to orange: Permanent Rose + Cadmium Yellow.</p>
+<p><strong>Cadmium Yellow</strong> (W&amp;N) — can't live without it. Mixes the orange above; also essential with Sap Green for yellow-leaning greens.</p>
+<p><strong>Yellow Ochre</strong> (W&amp;N) — can't live without it.</p>
+<p><strong>Gouache / Primary White</strong> (Holbein) — almost always ends up in use, especially for still lives.</p>
+<p><strong>Indigo</strong> (CfM) — by far the most important convenience mix on the palette. Functions as an effective black and general darkener. Took over the role Payne's Gray used to fill — actually replaced Payne's Gray on this palette for exactly that reason.</p>
+<h2>Blues</h2>
+<p>Three blues on the palette: Ultramarine, Cobalt Sea Blue, Cerulean.</p>
+<p>Since adding the <strong>Cobalt Sea Blue</strong> (Aquarius), <strong>Cerulean</strong> (CfM) barely gets used. It's a color I like, but I never seem to mix with it — it just sits there. Probably a candidate for removal on a future edit, or worth experimenting with intentionally.</p>
+<h2>Greens</h2>
+<p><strong>Sap Green</strong> (W&amp;N) — butt ugly straight from the pan, but a reliable base for mixing good greens. Direction of the mix determines the partner: Cobalt Sea Blue for blue-leaning greens, Cadmium Yellow for yellow-leaning greens.</p>
+<p><strong>CfM Olive</strong> used to live on this palette. Cobalt Sea Blue bumped it. Doesn't need a slot because Sap Green + Indigo reproduces it well enough — and Olive is a great color in its own right, just not palette-essential.</p>
+<h2>The Orange Workflow</h2>
+<p>Orange isn't on the palette as a tube color — it gets mixed: <strong>Permanent Rose + Cadmium Yellow</strong>. This comes up a lot, particularly for the orange mugs I paint at the cafe.</p>
+<p><strong>Dioxazine Violet</strong> (W&amp;N) is the shading color for that orange. Could theoretically live without it, but don't want to. Also earns its place for flowers — useful when painting landscapes with floral elements. Worth noting it's dangerously staining — handle with intent.</p>
+<h2>Underperformers</h2>
+<p><strong>Cadmium Red</strong> (W&amp;N) — used far less than expected. Not a cadmium-aversion thing (Cad Yellow and Cobalt Blue get used constantly). Notably doesn't mix well — Cad Red + Cad Yellow produces a dull orange. By itself though it's brilliant, thins well, and mixes well with white, so it has a place in more opaque/gouache-heavy work. Just not a go-to mixer.</p>
+<p><strong>Alizarin Crimson</strong> (W&amp;N) — barely used. Kept on the palette on principle (should have a cool red) but in practice it just doesn't get reached for. A candidate for honest removal.</p>
+<p><strong>Burnt Sienna</strong> (W&amp;N) — theoretically loved, actually underused. Does come out for coffee and landscapes, but it's a bit staining so it ends up getting bypassed in favor of Yellow Ochre. The staining makes it feel less safe to throw around loosely.</p>
+<p><strong>Cyprus Burnt Umber</strong> (Aquarius) — a nice color, but also used less than expected.</p>
+<h2>Colors That Don't Mix Well</h2>
+<p><strong>Cerulean</strong> (CfM) — beautiful for sky, but doesn't mix well. Consistent with its low use as a mixer generally. Best used relatively straight.</p>
+<p><strong>Cadmium Red</strong> (W&amp;N) — see above. The Cad Red + Cad Yellow orange is notably dull compared to the Permanent Rose + Cad Yellow orange.</p>
+<h2>Open Questions</h2>
+<p><strong>Sap Green</strong> — could theoretically do without it. Actively considering whether a different convenience green would serve better.</p></div>
+
+<section class="palette" id="palette-garden">
+<h2>Garden</h2>
+<p class="palette-meta">Szmal Metal &mdash; 12 of 12 slots</p>
+<div class="pan-grid">
+<div class="pan-row">
+<div class="pan">
+<div class="pan-name">Primary White</div>
+<div class="pan-brand">Holbein</div>
+<div class="pan-pigments">PW6</div>
+</div>
+<div class="pan">
+<div class="pan-name">Cadmium Yellow</div>
+<div class="pan-brand">W&N</div>
+<div class="pan-pigments">PY35, PO20</div>
+</div>
+<div class="pan">
+<div class="pan-name">Quinacridone Magenta</div>
+<div class="pan-brand">Szmal</div>
+<div class="pan-pigments">PR122</div>
+</div>
+<div class="pan">
+<div class="pan-name">Cadmium Red</div>
+<div class="pan-brand">W&N</div>
+<div class="pan-pigments">PR108</div>
+</div>
+<div class="pan">
+<div class="pan-name">Pyrrole Red</div>
+<div class="pan-brand">Szmal</div>
+<div class="pan-pigments">PR254</div>
+</div>
+<div class="pan">
+<div class="pan-name">Winsor Violet (Dioxazine)</div>
+<div class="pan-brand">W&N</div>
+<div class="pan-pigments">PV23</div>
+<div class="pan-notes">far edge</div>
+</div>
+</div>
+<div class="pan-row">
+<div class="pan">
+<div class="pan-name">Cobalt Cerulean Blue</div>
+<div class="pan-brand">Szmal</div>
+<div class="pan-pigments">PB36</div>
+</div>
+<div class="pan">
+<div class="pan-name">Phthalo Green (Blue Shade)</div>
+<div class="pan-brand">Szmal</div>
+<div class="pan-pigments">PG7</div>
+</div>
+<div class="pan">
+<div class="pan-name">Bamboo Green</div>
+<div class="pan-brand">Holbein</div>
+<div class="pan-pigments">PG36</div>
+</div>
+<div class="pan">
+<div class="pan-name">Yellow Ochre</div>
+<div class="pan-brand">W&N</div>
+<div class="pan-pigments">PY43</div>
+</div>
+<div class="pan">
+<div class="pan-name">Burnt Sienna</div>
+<div class="pan-brand">W&N</div>
+<div class="pan-pigments">PR101</div>
+</div>
+<div class="pan">
+<div class="pan-name">Burnt Umber</div>
+<div class="pan-brand">W&N</div>
+<div class="pan-pigments">PBr7, PR101, PY42</div>
+<div class="pan-notes">far edge — temp sub for Indigo</div>
+</div>
+</div>
+</div>
+</section>
+<div class="palette-notes"><h1>Garden Palette — Notes</h1>
+<h2>Container</h2>
+<p>Szmal Small (12 slots). Darks at far edges of each row — Dioxazine Violet at row 1 end, Burnt Umber at row 2 end. Earths together on row 2 right side, separated from Cad Yellow to avoid confusion.</p>
+<h2>Layout</h2>
+<table>
+<thead>
+<tr>
+<th>Row 1</th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>White gouache</td>
+<td>Cad Yellow</td>
+<td>Quin Magenta</td>
+<td>Cad Red</td>
+<td>Pyrrole Red</td>
+<td><strong>Diox Violet</strong></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Row 2</th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cobalt Cerulean</td>
+<td>Phthalo Green</td>
+<td>Bamboo Green</td>
+<td>Yellow Ochre</td>
+<td>Burnt Sienna</td>
+<td><strong>Burnt Umber</strong></td>
+</tr>
+</tbody>
+</table>
+<h2>Purpose</h2>
+<p>Garden botanical paintings at home. Succulents, California natives, sages, geranium, thyme varieties, calla lilies, manzanita, grasses. Focus on solving the green range problem that the default palette doesn't address.</p>
+<h2>Design Principles</h2>
+<ul>
+<li><strong>W&amp;N as backbone</strong> — trusted paints for the known colors (Cad Yellow, Cad Red, Dioxazine Violet, white gouache, earth tones)</li>
+<li><strong>Szmal for flowers</strong> — higher saturation right out of the pan, good for vivid flower colors (Quin Magenta, Pyrrole Red)</li>
+<li><strong>Szmal/Holbein for greens</strong> — new territory anyway, worth experimenting (Phthalo Green, Bamboo Green, Cobalt Cerulean)</li>
+<li><strong>Warm mood</strong> — the garden reads warm even on foggy days; darks are warm browns not cool greys</li>
+</ul>
+<h2>The Green Strategy</h2>
+<p>The main problem this palette solves. Default palette can't produce the range of garden greens quickly.</p>
+<ul>
+<li><strong>Bamboo Green</strong> (PG36) — mid-range foliage base, yellow-leaning, transparent</li>
+<li><strong>Phthalo Green BS</strong> (PG7) — dark anchor, deepener. Never used straight. A tiny amount pushes any green into deep geranium-leaf or dark aloe territory without muddying</li>
+<li><strong>Cobalt Cerulean</strong> (PB36, granulating) — silvery grey-greens, thyme tones, potentially the powdery succulent quality. Also interesting for mixing violets. A color to experiment with — not fully known yet</li>
+<li>Cad Yellow + any green shifts yellow-green fast</li>
+<li>Dioxazine Violet into greens for the sun-damaged succulent reds/violets shading into green</li>
+</ul>
+<h2>Flower Colors</h2>
+<ul>
+<li>Reds and scarlets: Cad Red (W&amp;N) — vivid, thins beautifully, finally earns its keep here</li>
+<li>Warm vivid red: Pyrrole Red (Szmal, PR254) — experimental, not fully known yet</li>
+<li>Pinks and magentas: Quinacridone Magenta (Szmal, PR122) — true magenta, wider pink/purple range than Permanent Rose</li>
+<li>Violet shadows and shading: Dioxazine Violet — also ideal for shading orange and for flower darks</li>
+<li>White flowers: paper + white gouache for highlights</li>
+</ul>
+<h2>Sage Colors</h2>
+<p>Already solved on the default palette with Dioxazine Violet + Cad Red + white gouache. Carried over here.</p>
+<h2>Succulents</h2>
+<p>Complex subject. The powdery/dusty quality may come from Cobalt Cerulean's granulation. Sun-damage reds: Pyrrole Red or Cad Red thinned and mixed into greens. The violet-to-green transitions: Dioxazine Violet into Bamboo Green.</p>
+<h2>Earths</h2>
+<p>Warm earth tones — this is a warm palette intentionally.
+- <strong>Yellow Ochre</strong> — can't leave home without it. Warm foliage, dried grasses, stems, terracotta
+- <strong>Burnt Sienna</strong> — bark, terracotta pots, warm shadows, organic surfaces
+- <strong>Burnt Umber</strong> — temporary sub for Indigo (see below). Deeper warm dark.</p>
+<h2>Temporary Substitution</h2>
+<p><strong>Burnt Umber is a placeholder for a second pan of Indigo.</strong> Indigo is the preferred dark anchor (as on the default palette) but a second pan isn't available yet. Burnt Umber covers the warm dark role adequately and fits the warm mood of this palette. Swap to Indigo when a second pan is acquired — it's an inexpensive color.</p></div>
+
+<section class="palette" id="palette-urban-sketch">
+<h2>Urban Sketch</h2>
+<p class="palette-meta">Yellow &mdash; 8 of 12 slots</p>
+<div class="pan-grid">
+<div class="pan-row">
+<div class="pan">
+<div class="pan-name">Indian Yellow</div>
+<div class="pan-brand">W&N</div>
+<div class="pan-pigments">PO62, PY139</div>
+</div>
+<div class="pan">
+<div class="pan-name">Yellow Ochre</div>
+<div class="pan-brand">W&N</div>
+<div class="pan-pigments">PY43</div>
+</div>
+<div class="pan">
+<div class="pan-name">Burnt Sienna</div>
+<div class="pan-brand">W&N</div>
+<div class="pan-pigments">PR101</div>
+</div>
+<div class="pan">
+<div class="pan-name">Winsor Violet (Dioxazine)</div>
+<div class="pan-brand">W&N</div>
+<div class="pan-pigments">PV23</div>
+<div class="pan-notes">far edge — staining</div>
+</div>
+</div>
+<div class="pan-row">
+<div class="pan">
+<div class="pan-name">Opera (Quinacridone Opera)</div>
+<div class="pan-brand">Holbein</div>
+<div class="pan-pigments">BV10, PR122</div>
+<div class="pan-notes">fugitive — right context for it</div>
+</div>
+<div class="pan">
+<div class="pan-name">Cherry Blossom Pink</div>
+<div class="pan-brand">Holbein</div>
+<div class="pan-pigments">PR233, PO73, PW6</div>
+</div>
+<div class="pan">
+<div class="pan-name">Davy's Grey</div>
+<div class="pan-brand">Holbein</div>
+<div class="pan-pigments">PBr7, PBk6, PW6</div>
+</div>
+<div class="pan">
+<div class="pan-name">Prussian Blue</div>
+<div class="pan-brand">W&N</div>
+<div class="pan-pigments">PB27</div>
+<div class="pan-notes">far edge — staining</div>
+</div>
+</div>
+</div>
+</section>
+<div class="palette-notes"><h1>Urban Sketch Palette — Notes</h1>
+<h2>Container</h2>
+<p>CfM Yellow (12 slots, 3 rows of 4). Only 8 pans — rows 1 and 3 filled, middle row deliberately empty. Constraint is intentional.</p>
+<h2>Layout</h2>
+<table>
+<thead>
+<tr>
+<th>Row 1</th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Indian Yellow</td>
+<td>Yellow Ochre</td>
+<td>Burnt Sienna</td>
+<td><strong>Dioxazine Violet</strong></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Row 2</th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>(empty)</em></td>
+<td><em>(empty)</em></td>
+<td><em>(empty)</em></td>
+<td><em>(empty)</em></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Row 3</th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Opera</td>
+<td>Cherry Blossom Pink</td>
+<td>Davy's Grey</td>
+<td><strong>Prussian Blue</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Stainers at far edges. Warm-to-dark on row 1. Atmospheric/unusual on row 3.</p>
+<h2>Purpose</h2>
+<p>Urban sketching following the urban sketching manifesto aesthetic. Black fountain pen handles all outlines and structure — watercolor is purely atmosphere, light, and mood. Subjects: SF street scenes, cafe food, people and dogs at the cafe, power lines, hills with ticky-tacky houses.</p>
+<p><strong>No white gouache</strong> — with 8 slots and the pen doing structure, whites are reserved by painting around them.</p>
+<p><strong>Lightfastness deliberately not a consideration</strong> — urban sketching is ephemeral by design. This is the correct context for fugitive paints like Opera.</p>
+<h2>Design Philosophy</h2>
+<p>The pen does description. The color does atmosphere. SF has two dominant light qualities: warm golden sun and luminous cool grey fog. Both are on this palette. Colors were chosen for atmospheric quality over mixing utility.</p>
+<h2>The Colors</h2>
+<p><strong>Indian Yellow</strong> (W&amp;N, PO62+PY139) — the SF golden light. Transparent, warm, glowing. Better than Cad Yellow for atmosphere. Coffee, pastries, afternoon light on buildings. Not a mixer — a mood color.</p>
+<p><strong>Yellow Ochre</strong> (W&amp;N, PY43) — can't leave home without it. Skin tones, SF concrete, warm architectural tones, pastry, the dust color of dry hills.</p>
+<p><strong>Burnt Sienna</strong> (W&amp;N, PR101) — the cafe color. Coffee, wood tables, warm brick, skin. Finally earns its keep here — a cafe/urban context suits it better than landscape.</p>
+<p><strong>Dioxazine Violet</strong> (W&amp;N, PV23) — SF building shadows read purple-blue. Mixed with Prussian Blue: deep cool shadows over pen lines. Mixed with Burnt Sienna: rich darks for interior scenes and coffee. Far edge, dangerously staining.</p>
+<p><strong>Opera</strong> (Holbein, BV10+PR122) — ★☆☆☆ fugitive, and that's fine here. Fluorescent vivid pink/magenta unlike anything else in the collection. Finally in the right context — urban sketching ephemera. Someone's jacket, a food truck, a flower stall. Mixed with Indian Yellow: vivid warm orange. Mixed with Davy's Grey: strange dusty rose. Mixed with Prussian Blue: surprising violets. Will try to bleed everywhere — lean into it over pen work, rinse brush carefully.</p>
+<p><strong>Cherry Blossom Pink</strong> (Holbein granulating, PR233+PO73+PW6) — the surprise pick. Soft granulating pink — the opposite of Opera's loudness. Cherry blossoms in Noe Valley, pink-toned Victorians, delicate skin tone washes, fog at magic hour. The granulation creates texture without effort. Use wet and give it room — don't fuss once it's down.</p>
+<p><strong>Davy's Grey</strong> (Holbein, PBr7+PBk6+PW6) — SF fog in a pan. Warm-leaning grey with enough color to not be dead. Architecture, concrete, asphalt, overcast sky. The PW6 makes it slightly more opaque than a transparent wash — don't fight this, it's part of what makes it good for buildings.</p>
+<p><strong>Prussian Blue</strong> (W&amp;N, PB27) — the urban blue. Darker and slightly greenish compared to Ultramarine — more industrial, suits city architecture, power lines, SF bay. Mixes good foliage greens with the yellows. Deep cool shadows with Dioxazine Violet. Will stain mixing wells fast. Far edge.</p>
+<h2>Colors to Watch</h2>
+<ul>
+<li>Opera will bleed. Rinse brush intentionally.</li>
+<li>Davy's Grey is slightly opaque — don't overwork it.</li>
+<li>Cherry Blossom Pink granulates — wet and leave it alone.</li>
+<li>Prussian Blue stains everything quickly.</li>
+</ul></div>
+
+<section class="palette" id="palette-cfm-floral">
+<h2>Cfm Floral</h2>
+<p class="palette-meta">Yellow &mdash; 12 of 12 slots</p>
+<div class="pan-grid">
+<div class="pan-row">
+<div class="pan">
+<div class="pan-name">CfM Poppy</div>
+<div class="pan-brand">CfM</div>
+</div>
+<div class="pan">
+<div class="pan-name">French Vermilion</div>
+<div class="pan-brand">CfM</div>
+<div class="pan-pigments">PR4, PY1</div>
+</div>
+<div class="pan">
+<div class="pan-name">CfM Coral</div>
+<div class="pan-brand">CfM</div>
+</div>
+<div class="pan">
+<div class="pan-name">CfM Fuchsia</div>
+<div class="pan-brand">CfM</div>
+</div>
+</div>
+<div class="pan-row">
+<div class="pan">
+<div class="pan-name">Lavender Blue Lake</div>
+<div class="pan-brand">CfM</div>
+<div class="pan-pigments">(CALCIUM_CARBONATE_BASE), PB29</div>
+</div>
+<div class="pan">
+<div class="pan-name">CfM Lupine</div>
+<div class="pan-brand">CfM</div>
+</div>
+<div class="pan">
+<div class="pan-name">Ultramarine Pink</div>
+<div class="pan-brand">CfM</div>
+<div class="pan-pigments">PV15</div>
+</div>
+<div class="pan">
+<div class="pan-name">Hot Pink</div>
+<div class="pan-brand">CfM</div>
+</div>
+</div>
+<div class="pan-row">
+<div class="pan">
+<div class="pan-name">Oxalis</div>
+<div class="pan-brand">CfM</div>
+</div>
+<div class="pan">
+<div class="pan-name">CfM Meadow</div>
+<div class="pan-brand">CfM</div>
+</div>
+<div class="pan">
+<div class="pan-name">Tide Pool</div>
+<div class="pan-brand">CfM</div>
+</div>
+<div class="pan">
+<div class="pan-name">CfM Cypress Green</div>
+<div class="pan-brand">CfM</div>
+</div>
+</div>
+</div>
+</section>
+<div class="palette-notes"><h1>CfM Floral Palette — Notes</h1>
+<h2>Overview</h2>
+<p>A floral palette built around CfM Handmade Watercolors, originally based on CfM's own proposed palette with slight modifications. Lived in the Yellow (CfM Simple Travel Palette, 12 slots).</p>
+<p><strong>Status: retired / reference.</strong> Didn't perform as well as hoped. Useful as a starting point for designing a better botanical palette.</p>
+<h2>The Paints</h2>
+<p>Poppy, French Vermilion, Coral, Fuchsia, Lavender Blue Lake, Lupine, Ultramarine Pink, Hot Pink, Oxalis, Meadow, Tide Pool, Cypress Green — all CfM.</p>
+<h2>What Didn't Work</h2>
+<p><strong>French Vermilion isn't a good substitute for Cadmium Red.</strong> CfM avoids cadmium colors, and the palette reflects that — but the Vermilion (PR4+PY1) just doesn't perform the same way. Cad Red has a brilliance and thinning quality that French Vermilion doesn't match.</p>
+<p><strong>The yellow (Oxalis) is OK but not great.</strong> Same constraint: no cadmium, so no Cad Yellow. The CfM Oxalis is fine but again, not the same.</p>
+<h2>What Was Good</h2>
+<p>The color selection is beautiful in theory — lots of pinks, violets, and soft greens that are genuinely lovely for florals. The CfM palette is pretty. It just didn't hold up as a working palette.</p>
+<h2>Lessons for the Next Botanical Palette</h2>
+<ul>
+<li>Probably needs Cad Yellow and Permanent Rose from W&amp;N as anchors</li>
+<li>French Vermilion is not a drop-in for Cad Red — if a red-orange is needed, use the real thing</li>
+<li>The CfM colors that are genuinely useful (Lupine, Ultramarine Pink, the pinks) could still appear alongside stronger W&amp;N paints</li>
+</ul></div>
+
+<section class="inventory" id="inventory">
+<h2>Full Inventory</h2>
+<div class="filters">
+  <label>Brand:
+    <select id="filter-brand" onchange="applyFilters()">
+      <option value="">All</option>
+      <option value="CfM Handmade Watercolors">CfM</option>
+      <option value="Da Vinci Watercolors">Da Vinci Watercolors</option>
+      <option value="Holbein Artists' Gouache">Holbein Gouache</option>
+      <option value="Holbein Artists' Watercolor (HWC)">Holbein HWC</option>
+      <option value="Roman Szmal Aquarius">Szmal Aquarius</option>
+      <option value="Winsor & Newton Professional Water Colour [2013-]">W&N</option>
+    </select>
+  </label>
+  <label>Hue:
+    <select id="filter-hue" onchange="applyFilters()">
+      <option value="">All</option>
+      <option value="Blue">Blue</option>
+      <option value="Earth">Earth</option>
+      <option value="Gray">Gray</option>
+      <option value="Green">Green</option>
+      <option value="Pink">Pink</option>
+      <option value="Red">Red</option>
+      <option value="Silver">Silver</option>
+      <option value="Violet">Violet</option>
+      <option value="White">White</option>
+      <option value="Yellow">Yellow</option>
+      <option value="black">black</option>
+      <option value="blue">blue</option>
+      <option value="blue green">blue green</option>
+      <option value="brown [dark earth hue]">brown [dark earth hue]</option>
+      <option value="dep red">dep red</option>
+      <option value="earth red">earth red</option>
+      <option value="earth yellow">earth yellow</option>
+      <option value="green">green</option>
+      <option value="green blue">green blue</option>
+      <option value="green yellow">green yellow</option>
+      <option value="metallic">metallic</option>
+      <option value="orange yellow">orange yellow</option>
+      <option value="red">red</option>
+      <option value="red violet">red violet</option>
+      <option value="violet">violet</option>
+      <option value="violet blue">violet blue</option>
+      <option value="violet red [magenta]">violet red [magenta]</option>
+      <option value="white">white</option>
+      <option value="yellow">yellow</option>
+    </select>
+  </label>
+  <label>
+    <input type="checkbox" id="filter-unused" onchange="applyFilters()">
+    Not used in any palette
+  </label>
+</div>
+<table id="inventory-table">
+<thead>
+  <tr>
+    <th>Color</th>
+    <th>Brand</th>
+    <th>Hue</th>
+    <th>Pigments</th>
+    <th>Transparency</th>
+    <th>Granulation</th>
+    <th>Lightfastness</th>
+    <th>In palettes</th>
+  </tr>
+</thead>
+<tbody>
+<tr class="paint-row" data-brand="Winsor & Newton Professional Water Colour [2013-]" data-hue="Red" data-unused="false">
+  <td>Alizarin Crimson</td>
+  <td>W&N</td>
+  <td>Red</td>
+  <td class="pigments">PR83</td>
+  <td>T</td>
+  <td></td>
+  <td>B</td>
+  <td>default</td>
+</tr>
+<tr class="paint-row unused" data-brand="Winsor & Newton Professional Water Colour [2013-]" data-hue="Yellow" data-unused="true">
+  <td>Aureolin Hue</td>
+  <td>W&N</td>
+  <td>Yellow</td>
+  <td class="pigments">PY151, PBr7</td>
+  <td>ST</td>
+  <td></td>
+  <td>AA</td>
+  <td>—</td>
+</tr>
+<tr class="paint-row" data-brand="Holbein Artists' Watercolor (HWC)" data-hue="green" data-unused="false">
+  <td>Bamboo Green</td>
+  <td>Holbein</td>
+  <td>green</td>
+  <td class="pigments">PG36</td>
+  <td>T</td>
+  <td></td>
+  <td>★★★☆</td>
+  <td>garden</td>
+</tr>
+<tr class="paint-row" data-brand="Winsor & Newton Professional Water Colour [2013-]" data-hue="Earth" data-unused="false">
+  <td>Burnt Sienna</td>
+  <td>W&N</td>
+  <td>Earth</td>
+  <td class="pigments">PR101</td>
+  <td>T</td>
+  <td></td>
+  <td>AA</td>
+  <td>default, garden, urban-sketch</td>
+</tr>
+<tr class="paint-row unused" data-brand="Holbein Artists' Watercolor (HWC)" data-hue="brown [dark earth hue]" data-unused="true">
+  <td>Burnt Sienna</td>
+  <td>Holbein</td>
+  <td>brown [dark earth hue]</td>
+  <td class="pigments">PBr7</td>
+  <td>SO</td>
+  <td>G</td>
+  <td>★★★★</td>
+  <td>—</td>
+</tr>
+<tr class="paint-row" data-brand="Winsor & Newton Professional Water Colour [2013-]" data-hue="Earth" data-unused="false">
+  <td>Burnt Umber</td>
+  <td>W&N</td>
+  <td>Earth</td>
+  <td class="pigments">PBr7, PR101, PY42</td>
+  <td>T</td>
+  <td></td>
+  <td>AA</td>
+  <td>garden</td>
+</tr>
+<tr class="paint-row" data-brand="Winsor & Newton Professional Water Colour [2013-]" data-hue="Red" data-unused="false">
+  <td>Cadmium Red</td>
+  <td>W&N</td>
+  <td>Red</td>
+  <td class="pigments">PR108</td>
+  <td>O</td>
+  <td>G</td>
+  <td>A</td>
+  <td>default, garden</td>
+</tr>
+<tr class="paint-row unused" data-brand="Holbein Artists' Watercolor (HWC)" data-hue="dep red" data-unused="true">
+  <td>Cadmium Red Deep</td>
+  <td>Holbein</td>
+  <td>dep red</td>
+  <td class="pigments">PR108</td>
+  <td>O</td>
+  <td>G</td>
+  <td>★★★☆</td>
+  <td>—</td>
+</tr>
+<tr class="paint-row" data-brand="Winsor & Newton Professional Water Colour [2013-]" data-hue="Yellow" data-unused="false">
+  <td>Cadmium Yellow</td>
+  <td>W&N</td>
+  <td>Yellow</td>
+  <td class="pigments">PY35, PO20</td>
+  <td>O</td>
+  <td></td>
+  <td>A</td>
+  <td>default, garden</td>
+</tr>
+<tr class="paint-row unused" data-brand="Holbein Artists' Watercolor (HWC)" data-hue="yellow" data-unused="true">
+  <td>Cadmium Yellow Light</td>
+  <td>Holbein</td>
+  <td>yellow</td>
+  <td class="pigments">PY35</td>
+  <td>O</td>
+  <td></td>
+  <td>★★★☆</td>
+  <td>—</td>
+</tr>
+<tr class="paint-row unused" data-brand="Winsor & Newton Professional Water Colour [2013-]" data-hue="Red" data-unused="true">
+  <td>Cadmium-Free Red</td>
+  <td>W&N</td>
+  <td>Red</td>
+  <td class="pigments"></td>
+  <td>O</td>
+  <td></td>
+  <td>A</td>
+  <td>—</td>
+</tr>
+<tr class="paint-row" data-brand="CfM Handmade Watercolors" data-hue="Blue" data-unused="false">
+  <td>Cerulean</td>
+  <td>CfM</td>
+  <td>Blue</td>
+  <td class="pigments">PB15</td>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td>default</td>
+</tr>
+<tr class="paint-row unused" data-brand="Holbein Artists' Watercolor (HWC)" data-hue="blue" data-unused="true">
+  <td>Cerulean Blue</td>
+  <td>Holbein</td>
+  <td>blue</td>
+  <td class="pigments">PB35</td>
+  <td>SO</td>
+  <td>G</td>
+  <td>★★★★</td>
+  <td>—</td>
+</tr>
+<tr class="paint-row" data-brand="CfM Handmade Watercolors" data-hue="Pink" data-unused="false">
+  <td>CfM Coral</td>
+  <td>CfM</td>
+  <td>Pink</td>
+  <td class="pigments"></td>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td>cfm-floral</td>
+</tr>
+<tr class="paint-row" data-brand="CfM Handmade Watercolors" data-hue="Green" data-unused="false">
+  <td>CfM Cypress Green</td>
+  <td>CfM</td>
+  <td>Green</td>
+  <td class="pigments"></td>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td>cfm-floral</td>
+</tr>
+<tr class="paint-row" data-brand="CfM Handmade Watercolors" data-hue="Pink" data-unused="false">
+  <td>CfM Fuchsia</td>
+  <td>CfM</td>
+  <td>Pink</td>
+  <td class="pigments"></td>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td>cfm-floral</td>
+</tr>
+<tr class="paint-row" data-brand="CfM Handmade Watercolors" data-hue="Violet" data-unused="false">
+  <td>CfM Lupine</td>
+  <td>CfM</td>
+  <td>Violet</td>
+  <td class="pigments"></td>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td>cfm-floral</td>
+</tr>
+<tr class="paint-row" data-brand="CfM Handmade Watercolors" data-hue="Green" data-unused="false">
+  <td>CfM Meadow</td>
+  <td>CfM</td>
+  <td>Green</td>
+  <td class="pigments"></td>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td>cfm-floral</td>
+</tr>
+<tr class="paint-row unused" data-brand="CfM Handmade Watercolors" data-hue="Green" data-unused="true">
+  <td>CfM Olive</td>
+  <td>CfM</td>
+  <td>Green</td>
+  <td class="pigments"></td>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td>—</td>
+</tr>
+<tr class="paint-row unused" data-brand="CfM Handmade Watercolors" data-hue="Gray" data-unused="true">
+  <td>CfM Payne's Grey</td>
+  <td>CfM</td>
+  <td>Gray</td>
+  <td class="pigments"></td>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td>—</td>
+</tr>
+<tr class="paint-row" data-brand="CfM Handmade Watercolors" data-hue="Red" data-unused="false">
+  <td>CfM Poppy</td>
+  <td>CfM</td>
+  <td>Red</td>
+  <td class="pigments"></td>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td>cfm-floral</td>
+</tr>
+<tr class="paint-row" data-brand="Holbein Artists' Watercolor (HWC)" data-hue="earth red" data-unused="false">
+  <td>Cherry Blossom Pink</td>
+  <td>Holbein</td>
+  <td>earth red</td>
+  <td class="pigments">PR233, PO73, PW6</td>
+  <td>SO</td>
+  <td>G</td>
+  <td>★★★☆</td>
+  <td>urban-sketch</td>
+</tr>
+<tr class="paint-row unused" data-brand="Roman Szmal Aquarius" data-hue="blue" data-unused="true">
+  <td>Cobalt Blue</td>
+  <td>Szmal</td>
+  <td>blue</td>
+  <td class="pigments">PB28</td>
+  <td>SO</td>
+  <td>G</td>
+  <td>★★★★★★★★</td>
+  <td>—</td>
+</tr>
+<tr class="paint-row" data-brand="Roman Szmal Aquarius" data-hue="green blue" data-unused="false">
+  <td>Cobalt Cerulean Blue</td>
+  <td>Szmal</td>
+  <td>green blue</td>
+  <td class="pigments">PB36</td>
+  <td>SO</td>
+  <td>G</td>
+  <td>★★★★★★★★</td>
+  <td>garden</td>
+</tr>
+<tr class="paint-row" data-brand="Roman Szmal Aquarius" data-hue="blue" data-unused="false">
+  <td>Cobalt Sea Blue</td>
+  <td>Szmal</td>
+  <td>blue</td>
+  <td class="pigments">PB28</td>
+  <td>SO</td>
+  <td>G</td>
+  <td>★★★★★★★★</td>
+  <td>default</td>
+</tr>
+<tr class="paint-row" data-brand="Roman Szmal Aquarius" data-hue="brown [dark earth hue]" data-unused="false">
+  <td>Cyprus Burnt Umber</td>
+  <td>Szmal</td>
+  <td>brown [dark earth hue]</td>
+  <td class="pigments">PBr7</td>
+  <td>ST</td>
+  <td>MG</td>
+  <td>★★★★★★★★</td>
+  <td>default</td>
+</tr>
+<tr class="paint-row" data-brand="Holbein Artists' Watercolor (HWC)" data-hue="brown [dark earth hue]" data-unused="false">
+  <td>Davy's Grey</td>
+  <td>Holbein</td>
+  <td>brown [dark earth hue]</td>
+  <td class="pigments">PBr7, PBk6, PW6</td>
+  <td>SO</td>
+  <td></td>
+  <td>★★★☆</td>
+  <td>urban-sketch</td>
+</tr>
+<tr class="paint-row unused" data-brand="Roman Szmal Aquarius" data-hue="yellow" data-unused="true">
+  <td>Deep Green Gold</td>
+  <td>Szmal</td>
+  <td>yellow</td>
+  <td class="pigments">PY129</td>
+  <td>T</td>
+  <td>NG</td>
+  <td>★★★★★★★★</td>
+  <td>—</td>
+</tr>
+<tr class="paint-row unused" data-brand="Roman Szmal Aquarius" data-hue="violet blue" data-unused="true">
+  <td>French Ultramarine</td>
+  <td>Szmal</td>
+  <td>violet blue</td>
+  <td class="pigments">PB29</td>
+  <td>ST</td>
+  <td>G</td>
+  <td>★★★★★★★★</td>
+  <td>—</td>
+</tr>
+<tr class="paint-row" data-brand="CfM Handmade Watercolors" data-hue="Red" data-unused="false">
+  <td>French Vermilion</td>
+  <td>CfM</td>
+  <td>Red</td>
+  <td class="pigments">PR4, PY1</td>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td>cfm-floral</td>
+</tr>
+<tr class="paint-row unused" data-brand="Holbein Artists' Watercolor (HWC)" data-hue="metallic" data-unused="true">
+  <td>Gold</td>
+  <td>Holbein</td>
+  <td>metallic</td>
+  <td class="pigments">PW20</td>
+  <td>SO</td>
+  <td>G</td>
+  <td>★★★★</td>
+  <td>—</td>
+</tr>
+<tr class="paint-row unused" data-brand="Roman Szmal Aquarius" data-hue="earth yellow" data-unused="true">
+  <td>Gold Ochre</td>
+  <td>Szmal</td>
+  <td>earth yellow</td>
+  <td class="pigments">PY43</td>
+  <td>ST</td>
+  <td>MG</td>
+  <td>★★★★★★★★</td>
+  <td>—</td>
+</tr>
+<tr class="paint-row unused" data-brand="Roman Szmal Aquarius" data-hue="orange yellow" data-unused="true">
+  <td>Golden Yellow</td>
+  <td>Szmal</td>
+  <td>orange yellow</td>
+  <td class="pigments">PY181</td>
+  <td>ST</td>
+  <td>NG</td>
+  <td>★★★★★★★★</td>
+  <td>—</td>
+</tr>
+<tr class="paint-row" data-brand="CfM Handmade Watercolors" data-hue="Pink" data-unused="false">
+  <td>Hot Pink</td>
+  <td>CfM</td>
+  <td>Pink</td>
+  <td class="pigments"></td>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td>cfm-floral</td>
+</tr>
+<tr class="paint-row" data-brand="Winsor & Newton Professional Water Colour [2013-]" data-hue="Yellow" data-unused="false">
+  <td>Indian Yellow</td>
+  <td>W&N</td>
+  <td>Yellow</td>
+  <td class="pigments">PO62, PY139</td>
+  <td>T</td>
+  <td></td>
+  <td>A</td>
+  <td>urban-sketch</td>
+</tr>
+<tr class="paint-row" data-brand="CfM Handmade Watercolors" data-hue="Blue" data-unused="false">
+  <td>Indigo</td>
+  <td>CfM</td>
+  <td>Blue</td>
+  <td class="pigments">PB66</td>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td>default</td>
+</tr>
+<tr class="paint-row unused" data-brand="Holbein Artists' Watercolor (HWC)" data-hue="black" data-unused="true">
+  <td>Ivory Black</td>
+  <td>Holbein</td>
+  <td>black</td>
+  <td class="pigments">PBk9</td>
+  <td>SO</td>
+  <td>G</td>
+  <td>★★★★</td>
+  <td>—</td>
+</tr>
+<tr class="paint-row unused" data-brand="Holbein Artists' Watercolor (HWC)" data-hue="black" data-unused="true">
+  <td>Lamp Black</td>
+  <td>Holbein</td>
+  <td>black</td>
+  <td class="pigments">PBk6</td>
+  <td>O</td>
+  <td></td>
+  <td>★★★★</td>
+  <td>—</td>
+</tr>
+<tr class="paint-row" data-brand="CfM Handmade Watercolors" data-hue="Blue" data-unused="false">
+  <td>Lavender Blue Lake</td>
+  <td>CfM</td>
+  <td>Blue</td>
+  <td class="pigments">(CALCIUM_CARBONATE_BASE), PB29</td>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td>cfm-floral</td>
+</tr>
+<tr class="paint-row unused" data-brand="Roman Szmal Aquarius" data-hue="green" data-unused="true">
+  <td>Misty Morning</td>
+  <td>Szmal</td>
+  <td>green</td>
+  <td class="pigments">PG50, PV19</td>
+  <td>ST</td>
+  <td>G</td>
+  <td>★★★★★★★☆</td>
+  <td>—</td>
+</tr>
+<tr class="paint-row unused" data-brand="Roman Szmal Aquarius" data-hue="orange yellow" data-unused="true">
+  <td>Nickel Azo Yellow</td>
+  <td>Szmal</td>
+  <td>orange yellow</td>
+  <td class="pigments">PY150</td>
+  <td>T</td>
+  <td>NG</td>
+  <td>★★★★★★★★</td>
+  <td>—</td>
+</tr>
+<tr class="paint-row unused" data-brand="Roman Szmal Aquarius" data-hue="earth yellow" data-unused="true">
+  <td>Ochre Havana</td>
+  <td>Szmal</td>
+  <td>earth yellow</td>
+  <td class="pigments">PY43</td>
+  <td>ST</td>
+  <td>MG</td>
+  <td>★★★★★★★★</td>
+  <td>—</td>
+</tr>
+<tr class="paint-row" data-brand="Holbein Artists' Watercolor (HWC)" data-hue="violet red [magenta]" data-unused="false">
+  <td>Opera (Quinacridone Opera)</td>
+  <td>Holbein</td>
+  <td>violet red [magenta]</td>
+  <td class="pigments">BV10, PR122</td>
+  <td>T</td>
+  <td></td>
+  <td>★☆☆☆</td>
+  <td>urban-sketch</td>
+</tr>
+<tr class="paint-row" data-brand="CfM Handmade Watercolors" data-hue="Yellow" data-unused="false">
+  <td>Oxalis</td>
+  <td>CfM</td>
+  <td>Yellow</td>
+  <td class="pigments"></td>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td>cfm-floral</td>
+</tr>
+<tr class="paint-row unused" data-brand="Holbein Artists' Watercolor (HWC)" data-hue="green yellow" data-unused="true">
+  <td>Permanent Green #1</td>
+  <td>Holbein</td>
+  <td>green yellow</td>
+  <td class="pigments">PY3, PY53, PG7</td>
+  <td>SO</td>
+  <td></td>
+  <td>★★☆☆</td>
+  <td>—</td>
+</tr>
+<tr class="paint-row" data-brand="Winsor & Newton Professional Water Colour [2013-]" data-hue="Red" data-unused="false">
+  <td>Permanent Rose</td>
+  <td>W&N</td>
+  <td>Red</td>
+  <td class="pigments">PV19</td>
+  <td>T</td>
+  <td></td>
+  <td>A</td>
+  <td>default</td>
+</tr>
+<tr class="paint-row" data-brand="Winsor & Newton Professional Water Colour [2013-]" data-hue="Green" data-unused="false">
+  <td>Permanent Sap Green</td>
+  <td>W&N</td>
+  <td>Green</td>
+  <td class="pigments">PG36, PY110</td>
+  <td>T</td>
+  <td></td>
+  <td>A</td>
+  <td>default</td>
+</tr>
+<tr class="paint-row unused" data-brand="Holbein Artists' Watercolor (HWC)" data-hue="violet" data-unused="true">
+  <td>Permanent Violet</td>
+  <td>Holbein</td>
+  <td>violet</td>
+  <td class="pigments">PV23</td>
+  <td>T</td>
+  <td></td>
+  <td>★★★☆</td>
+  <td>—</td>
+</tr>
+<tr class="paint-row unused" data-brand="Holbein Artists' Watercolor (HWC)" data-hue="green yellow" data-unused="true">
+  <td>Permanent Yellow Lemon</td>
+  <td>Holbein</td>
+  <td>green yellow</td>
+  <td class="pigments">PY3, PY74</td>
+  <td>ST</td>
+  <td></td>
+  <td>★★☆☆</td>
+  <td>—</td>
+</tr>
+<tr class="paint-row unused" data-brand="Holbein Artists' Watercolor (HWC)" data-hue="dep red" data-unused="true">
+  <td>Perylene Maroon</td>
+  <td>Holbein</td>
+  <td>dep red</td>
+  <td class="pigments">PR179</td>
+  <td>T</td>
+  <td></td>
+  <td>★★★☆</td>
+  <td>—</td>
+</tr>
+<tr class="paint-row" data-brand="Roman Szmal Aquarius" data-hue="blue green" data-unused="false">
+  <td>Phthalo Green (Blue Shade)</td>
+  <td>Szmal</td>
+  <td>blue green</td>
+  <td class="pigments">PG7</td>
+  <td>T</td>
+  <td>NG</td>
+  <td>★★★★★★★★</td>
+  <td>garden</td>
+</tr>
+<tr class="paint-row unused" data-brand="CfM Handmade Watercolors" data-hue="Red" data-unused="true">
+  <td>Primary Red</td>
+  <td>CfM</td>
+  <td>Red</td>
+  <td class="pigments">PV19</td>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td>—</td>
+</tr>
+<tr class="paint-row" data-brand="Holbein Artists' Gouache" data-hue="white" data-unused="false">
+  <td>Primary White</td>
+  <td>Holbein</td>
+  <td>white</td>
+  <td class="pigments">PW6</td>
+  <td>SO</td>
+  <td></td>
+  <td>★★★★</td>
+  <td>default, garden</td>
+</tr>
+<tr class="paint-row" data-brand="Winsor & Newton Professional Water Colour [2013-]" data-hue="Blue" data-unused="false">
+  <td>Prussian Blue</td>
+  <td>W&N</td>
+  <td>Blue</td>
+  <td class="pigments">PB27</td>
+  <td>T</td>
+  <td></td>
+  <td>A</td>
+  <td>urban-sketch</td>
+</tr>
+<tr class="paint-row" data-brand="Roman Szmal Aquarius" data-hue="red" data-unused="false">
+  <td>Pyrrole Red</td>
+  <td>Szmal</td>
+  <td>red</td>
+  <td class="pigments">PR254</td>
+  <td>SO</td>
+  <td>MG</td>
+  <td>★★★★★★★★</td>
+  <td>garden</td>
+</tr>
+<tr class="paint-row" data-brand="Roman Szmal Aquarius" data-hue="violet red [magenta]" data-unused="false">
+  <td>Quinacridone Magenta</td>
+  <td>Szmal</td>
+  <td>violet red [magenta]</td>
+  <td class="pigments">PR122</td>
+  <td>T</td>
+  <td>NG</td>
+  <td>★★★★★★★★</td>
+  <td>garden</td>
+</tr>
+<tr class="paint-row unused" data-brand="Roman Szmal Aquarius" data-hue="violet red [magenta]" data-unused="true">
+  <td>Quinacridone Red</td>
+  <td>Szmal</td>
+  <td>violet red [magenta]</td>
+  <td class="pigments">PV19</td>
+  <td>T</td>
+  <td>NG</td>
+  <td>★★★★★★★★</td>
+  <td>—</td>
+</tr>
+<tr class="paint-row unused" data-brand="Winsor & Newton Professional Water Colour [2013-]" data-hue="Earth" data-unused="true">
+  <td>Raw Sienna</td>
+  <td>W&N</td>
+  <td>Earth</td>
+  <td class="pigments">PY42, PR101</td>
+  <td>T</td>
+  <td>G</td>
+  <td>AA</td>
+  <td>—</td>
+</tr>
+<tr class="paint-row unused" data-brand="Winsor & Newton Professional Water Colour [2013-]" data-hue="Earth" data-unused="true">
+  <td>Raw Umber</td>
+  <td>W&N</td>
+  <td>Earth</td>
+  <td class="pigments">PBr7</td>
+  <td>T</td>
+  <td>G</td>
+  <td>AA</td>
+  <td>—</td>
+</tr>
+<tr class="paint-row unused" data-brand="CfM Handmade Watercolors" data-hue="Silver" data-unused="true">
+  <td>Silver</td>
+  <td>CfM</td>
+  <td>Silver</td>
+  <td class="pigments"></td>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td>—</td>
+</tr>
+<tr class="paint-row unused" data-brand="Holbein Artists' Watercolor (HWC)" data-hue="metallic" data-unused="true">
+  <td>Silver</td>
+  <td>Holbein</td>
+  <td>metallic</td>
+  <td class="pigments">PW20</td>
+  <td>SO</td>
+  <td>G</td>
+  <td>★★★★</td>
+  <td>—</td>
+</tr>
+<tr class="paint-row" data-brand="CfM Handmade Watercolors" data-hue="Green" data-unused="false">
+  <td>Tide Pool</td>
+  <td>CfM</td>
+  <td>Green</td>
+  <td class="pigments"></td>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td>cfm-floral</td>
+</tr>
+<tr class="paint-row unused" data-brand="Da Vinci Watercolors" data-hue="White" data-unused="true">
+  <td>Titanium White</td>
+  <td>Da Vinci</td>
+  <td>White</td>
+  <td class="pigments">PW6</td>
+  <td>O</td>
+  <td></td>
+  <td>I</td>
+  <td>—</td>
+</tr>
+<tr class="paint-row" data-brand="Winsor & Newton Professional Water Colour [2013-]" data-hue="Blue" data-unused="false">
+  <td>Ultramarine (Green Shade)</td>
+  <td>W&N</td>
+  <td>Blue</td>
+  <td class="pigments">PB29</td>
+  <td>T</td>
+  <td></td>
+  <td>A</td>
+  <td>default</td>
+</tr>
+<tr class="paint-row unused" data-brand="Holbein Artists' Watercolor (HWC)" data-hue="violet blue" data-unused="true">
+  <td>Ultramarine Deep</td>
+  <td>Holbein</td>
+  <td>violet blue</td>
+  <td class="pigments">PB29</td>
+  <td>ST</td>
+  <td>G</td>
+  <td>★★★☆</td>
+  <td>—</td>
+</tr>
+<tr class="paint-row" data-brand="CfM Handmade Watercolors" data-hue="Pink" data-unused="false">
+  <td>Ultramarine Pink</td>
+  <td>CfM</td>
+  <td>Pink</td>
+  <td class="pigments">PV15</td>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td>cfm-floral</td>
+</tr>
+<tr class="paint-row unused" data-brand="Roman Szmal Aquarius" data-hue="red violet" data-unused="true">
+  <td>Ultramarine Pink</td>
+  <td>Szmal</td>
+  <td>red violet</td>
+  <td class="pigments">PR259</td>
+  <td>ST</td>
+  <td>G</td>
+  <td>★★★★★★★★</td>
+  <td>—</td>
+</tr>
+<tr class="paint-row unused" data-brand="Roman Szmal Aquarius" data-hue="earth yellow" data-unused="true">
+  <td>Venetian Yellow Earth</td>
+  <td>Szmal</td>
+  <td>earth yellow</td>
+  <td class="pigments">PY43</td>
+  <td>T</td>
+  <td>NG</td>
+  <td>★★★★★★★★</td>
+  <td>—</td>
+</tr>
+<tr class="paint-row unused" data-brand="Holbein Artists' Watercolor (HWC)" data-hue="blue" data-unused="true">
+  <td>Verditer Blue</td>
+  <td>Holbein</td>
+  <td>blue</td>
+  <td class="pigments">PB28, PW6</td>
+  <td>SO</td>
+  <td></td>
+  <td>★★★☆</td>
+  <td>—</td>
+</tr>
+<tr class="paint-row" data-brand="Winsor & Newton Professional Water Colour [2013-]" data-hue="Violet" data-unused="false">
+  <td>Winsor Violet (Dioxazine)</td>
+  <td>W&N</td>
+  <td>Violet</td>
+  <td class="pigments">PV23</td>
+  <td>T</td>
+  <td></td>
+  <td>A</td>
+  <td>default, garden, urban-sketch</td>
+</tr>
+<tr class="paint-row" data-brand="Winsor & Newton Professional Water Colour [2013-]" data-hue="Earth" data-unused="false">
+  <td>Yellow Ochre</td>
+  <td>W&N</td>
+  <td>Earth</td>
+  <td class="pigments">PY43</td>
+  <td>SO</td>
+  <td>G</td>
+  <td>AA</td>
+  <td>default, garden, urban-sketch</td>
+</tr>
+<tr class="paint-row unused" data-brand="Holbein Artists' Watercolor (HWC)" data-hue="earth yellow" data-unused="true">
+  <td>Yellow Ochre</td>
+  <td>Holbein</td>
+  <td>earth yellow</td>
+  <td class="pigments">PY42</td>
+  <td>SO</td>
+  <td></td>
+  <td>★★★★</td>
+  <td>—</td>
+</tr>
+</tbody></table>
+</section>
+<section id="notes">
+<h2>Notes</h2>
+<h3>Brand Notes</h3>
+<div class="palette-notes"><h1>Brand Notes</h1>
+<h2>W&amp;N Professional</h2>
+<p>Longest-used, most trusted. Flows well, reliable for wet-on-wet. Natural default for landscape and any situation where flow and predictability matter. Artist grade, lightfast (where marked).</p>
+<h2>CfM Handmade Watercolors</h2>
+<p>Longtime but trusted less than W&amp;N. Often missing pigment info. Good colors, pretty palette as inspiration, but the no-cadmium constraint limits them as serious mixing paints.</p>
+<h2>Roman Szmal Aquarius</h2>
+<p>New acquisition, honey-based. Noticeably more saturated than W&amp;N straight from the pan. Performing well so far. Good candidate for flower colors where saturation matters. Still proving themselves but promising — the garden is a good testing ground.</p>
+<h2>Holbein HWC</h2>
+<p>Newest, barely used yet. Reported to be less flowey than W&amp;N — better suited to illustration than loose wet-on-wet watercolor. Worth testing in controlled situations before relying on for plein air.</p>
+<h2>General</h2>
+<p>All brands in the collection are artist grade. Paints explicitly marked fugitive (e.g. Holbein Opera ★☆☆☆) are known exceptions — everything else is reasonably trustworthy for lightfastness.</p></div>
+</section>
+
+<script>
+function applyFilters() {
+    const brand = document.getElementById('filter-brand').value;
+    const hue = document.getElementById('filter-hue').value;
+    const unusedOnly = document.getElementById('filter-unused').checked;
+    document.querySelectorAll('.paint-row').forEach(row => {
+        const matchBrand = !brand || row.dataset.brand === brand;
+        const matchHue = !hue || row.dataset.hue === hue;
+        const matchUnused = !unusedOnly || row.dataset.unused === 'true';
+        row.classList.toggle('hidden', !(matchBrand && matchHue && matchUnused));
+    });
+}
+</script>
+</body>
+</html>

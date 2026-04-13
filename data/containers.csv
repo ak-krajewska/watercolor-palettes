@@ -1,0 +1,5 @@
+id,name,brand,max_slots,portability,pan_orientation,notes
+cfm_yellow,Yellow,CfM,12,travel,landscape,Simple Travel Palette in egg yolk yellow. 4×3 half-pans. Slots are a maximum not a target.
+cfm_small,Small Palette,CfM,14,travel/studio,portrait,Default palette lives here. Excellent fold-out mixing wells. Preferred travel box. Slots are a maximum not a target.
+szmal_small,Szmal Metal,Roman Szmal,12,travel,portrait,Wells don't fold fully flat — less preferred than CfM boxes as a result. Slots are a maximum not a target.
+szmal_large,Szmal Large,Roman Szmal,48,studio,portrait,Better suited for home or unusual transport needs. Bought cheaply in Poland (70zł). Slots are a maximum not a target.
