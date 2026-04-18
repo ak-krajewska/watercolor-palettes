@@ -163,6 +163,7 @@ def render_inventory(inventory, used_ids):
   <tr>
     <th>Color</th>
     <th>Brand</th>
+    <th>Code</th>
     <th>Hue</th>
     <th>Pigments</th>
     <th>Transparency</th>
@@ -189,11 +190,10 @@ def render_inventory(inventory, used_ids):
             .replace("Roman Szmal Aquarius", "Szmal")
             .replace("CfM Handmade Watercolors", "CfM")
             .replace("Da Vinci Watercolors", "Da Vinci"))
-        if p.get('manufacturer_code'):
-            brand_short = f'{brand_short} {p["manufacturer_code"]}'
         html += f'<tr class="paint-row{unused_class}" data-brand="{p["brand"]}" data-hue="{p["hue_category"]}" data-unused="{"true" if pid not in used_ids else "false"}">\n'
         html += f'  <td>{p["color_name"]}</td>\n'
         html += f'  <td>{brand_short}</td>\n'
+        html += f'  <td class="mfr-code">{p.get("manufacturer_code") or ""}</td>\n'
         html += f'  <td>{p["hue_category"]}</td>\n'
         html += f'  <td class="pigments">{p["pigments"]}</td>\n'
         html += f'  <td>{p["transparency"]}</td>\n'
@@ -273,6 +273,7 @@ tbody tr { border-bottom: 1px solid #eee; }
 tbody tr:hover { background: #faf8f5; }
 td { padding: 0.4rem 0.6rem; vertical-align: top; }
 .pigments { font-family: monospace; font-size: 0.78rem; color: #555; }
+.mfr-code { font-family: monospace; font-size: 0.78rem; color: #888; }
 tr.unused { background: #fffbf5; }
 tr.hidden { display: none; }
 .unused-badge { display: inline-block; font-size: 0.7rem; background: #f0e8d8; color: #a06020; border-radius: 3px; padding: 0.1rem 0.35rem; margin-left: 0.4rem; }
