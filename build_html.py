@@ -93,6 +93,7 @@ def render_palette(name, rows, inventory, container):
             paint = inventory.get(entry['paint_id'], {})
             color_name = paint.get('color_name') or entry.get('color_name') or entry['paint_id']
             brand = paint.get('brand') or ''
+            manufacturer_code = paint.get('manufacturer_code') or ''
             pigments = paint.get('pigments') or ''
             notes = entry.get('notes') or ''
 
@@ -105,6 +106,8 @@ def render_palette(name, rows, inventory, container):
                 .replace("CfM Handmade Watercolors", "CfM")
                 .replace("Da Vinci Watercolors", "Da Vinci")
                 .replace("Winsor & Newton Cotman Water Colours", "W&N Cotman"))
+            if manufacturer_code:
+                brand_short = f'{brand_short} {manufacturer_code}'
 
             html += '<div class="pan">\n'
             html += f'<div class="pan-name">{color_name}</div>\n'
@@ -186,6 +189,8 @@ def render_inventory(inventory, used_ids):
             .replace("Roman Szmal Aquarius", "Szmal")
             .replace("CfM Handmade Watercolors", "CfM")
             .replace("Da Vinci Watercolors", "Da Vinci"))
+        if p.get('manufacturer_code'):
+            brand_short = f'{brand_short} {p["manufacturer_code"]}'
         html += f'<tr class="paint-row{unused_class}" data-brand="{p["brand"]}" data-hue="{p["hue_category"]}" data-unused="{"true" if pid not in used_ids else "false"}">\n'
         html += f'  <td>{p["color_name"]}</td>\n'
         html += f'  <td>{brand_short}</td>\n'
@@ -452,6 +457,7 @@ def build_labels(inventory, palettes, containers):
                 paint = inventory.get(entry['paint_id'], {})
                 color_name = paint.get('color_name') or entry.get('color_name') or entry['paint_id']
                 brand = paint.get('brand') or ''
+                manufacturer_code = paint.get('manufacturer_code') or ''
                 pigments = paint.get('pigments') or ''
 
                 brand_short = (brand
@@ -462,6 +468,8 @@ def build_labels(inventory, palettes, containers):
                     .replace("CfM Handmade Watercolors", "CfM")
                     .replace("Da Vinci Watercolors", "Da Vinci")
                     .replace("Winsor & Newton Cotman Water Colours", "W&N"))
+                if manufacturer_code:
+                    brand_short = f'{brand_short} {manufacturer_code}'
 
                 body += f'<div class="card" style="{card_style}">\n'
                 body += f'  <div class="card-name">{color_name}</div>\n'

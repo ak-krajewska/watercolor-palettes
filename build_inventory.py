@@ -64,6 +64,7 @@ def load_xlsx():
             'id': d['ID'],
             'color_name': d['Color Name'],
             'brand': d['Brand'],
+            'manufacturer_code': re.sub(r'[^\w]', '', str(d['Code'])) if d.get('Code') else '',
             'medium': d['Medium'],
             'transparency': d['Transparency'] or '',
             'granulation': d['Granulation'] or '',
@@ -143,6 +144,7 @@ def merge(paints, manual_rows):
                 'id': f'cfm_x{extra_id:02d}',
                 'color_name': m['Color name'],
                 'brand': 'CfM Handmade Watercolors',
+                'manufacturer_code': '',
                 'medium': 'Watercolor',
                 'transparency': '',
                 'granulation': '',
@@ -163,9 +165,9 @@ def merge(paints, manual_rows):
     return paints, added
 
 
-FIELDS = ['id', 'color_name', 'brand', 'medium', 'hue_category', 'transparency',
-          'granulation', 'staining', 'lightfastness', 'astm_lightfastness', 'pigments',
-          'single_pigment', 'pigment_known', 'alt_names', 'source', 'notes']
+FIELDS = ['id', 'color_name', 'brand', 'manufacturer_code', 'medium', 'hue_category',
+          'transparency', 'granulation', 'staining', 'lightfastness', 'astm_lightfastness',
+          'pigments', 'single_pigment', 'pigment_known', 'alt_names', 'source', 'notes']
 
 
 def write_csv(paints):
