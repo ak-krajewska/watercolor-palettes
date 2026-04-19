@@ -19,6 +19,7 @@ PIGMENT_INDEX = BASE / 'pigment-index.csv'
 OUT = BASE / 'data' / 'inventory.csv'
 PALETTES_CSV = BASE / 'data' / 'palettes.csv'
 CONTAINERS_CSV = BASE / 'data' / 'containers.csv'
+LOADOUTS_CSV = BASE / 'data' / 'loadouts.csv'
 
 def norm_name(s):
     """Normalize color name: strip leading 'CfM ' brand prefix, lowercase, alphanumeric only."""
@@ -178,7 +179,7 @@ def write_csv(paints):
 
 
 def check_palette_refs(paints):
-    """Warn if palettes reference paint IDs or container IDs that don't exist."""
+    """Warn if palettes or loadouts reference IDs that don't exist."""
     if not PALETTES_CSV.exists():
         return
 
@@ -188,25 +189,37 @@ def check_palette_refs(paints):
         with open(CONTAINERS_CSV) as f:
             container_ids = {row['id'] for row in csv.DictReader(f)}
 
+    palette_names = set()
     broken_paints = []
-    broken_containers = []
     with open(PALETTES_CSV) as f:
         for row in csv.DictReader(f):
+            palette_names.add(row['palette_name'])
             if row['paint_id'] not in inventory_ids:
                 broken_paints.append((row['palette_name'], row['paint_id'], row['color_name']))
-            cid = row.get('container_id', '')
-            if cid and cid not in container_ids:
-                broken_containers.append((row['palette_name'], cid))
+
+    broken_loadout_palettes = []
+    broken_loadout_containers = []
+    if LOADOUTS_CSV.exists():
+        with open(LOADOUTS_CSV) as f:
+            for row in csv.DictReader(f):
+                if row['palette_name'] not in palette_names:
+                    broken_loadout_palettes.append(row['palette_name'])
+                if row['container_id'] not in container_ids:
+                    broken_loadout_containers.append((row['palette_name'], row['container_id']))
 
     if broken_paints:
         print("WARNING: palette entries with no matching inventory ID:")
         for palette, pid, name in broken_paints:
             print(f"  [{palette}] {pid}  {name}")
-    if broken_containers:
-        print("WARNING: palette entries referencing unknown container:")
-        for palette, cid in set(broken_containers):
+    if broken_loadout_palettes:
+        print("WARNING: loadouts reference unknown palettes:")
+        for name in broken_loadout_palettes:
+            print(f"  {name}")
+    if broken_loadout_containers:
+        print("WARNING: loadouts reference unknown containers:")
+        for palette, cid in broken_loadout_containers:
             print(f"  [{palette}] container '{cid}' not in containers.csv")
-    if not broken_paints and not broken_containers:
+    if not broken_paints and not broken_loadout_palettes and not broken_loadout_containers:
         print("Palette references OK.")
 
 

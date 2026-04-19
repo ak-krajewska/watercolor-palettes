@@ -40,6 +40,16 @@ def load_palettes():
     return palettes
 
 
+def load_loadouts():
+    """Returns dict of palette_name -> container_id for loaded palettes."""
+    loadouts = {}
+    path = DATA / 'loadouts.csv'
+    if path.exists():
+        for row in load_csv(path):
+            loadouts[row['palette_name']] = row['container_id']
+    return loadouts
+
+
 def load_containers():
     containers = {}
     for row in load_csv(DATA / 'containers.csv'):
@@ -66,8 +76,8 @@ def palette_paints_used(palettes):
     return used
 
 
-def render_palette(name, rows, inventory, container):
-    """Render a single palette as HTML."""
+def render_palette(name, rows, inventory, container, loaded):
+    """Render a single palette as HTML. container is None for plans."""
     # Group by row
     by_row = defaultdict(list)
     for row in rows:
@@ -76,14 +86,18 @@ def render_palette(name, rows, inventory, container):
     for r in by_row:
         by_row[r].sort(key=lambda x: int(x.get('position') or 0))
 
-    container_name = container['name'] if container else ''
-    container_slots = container['max_slots'] if container else ''
     slot_count = len(rows)
+    palette_class = 'palette' if loaded else 'palette palette-plan'
 
-    html = f'<section class="palette" id="palette-{name}">\n'
-    html += f'<h2>{name.replace("-", " ").title()}</h2>\n'
-    if container_name:
-        html += f'<p class="palette-meta">{container_name} &mdash; {slot_count} of {container_slots} slots</p>\n'
+    html = f'<section class="{palette_class}" id="palette-{name}">\n'
+    html += f'<h2>{name.replace("-", " ").title()}'
+    if not loaded:
+        html += ' <span class="plan-badge">plan</span>'
+    html += '</h2>\n'
+    if container:
+        html += f'<p class="palette-meta">{container["name"]} &mdash; {slot_count} of {container["max_slots"]} slots</p>\n'
+    else:
+        html += f'<p class="palette-meta">{slot_count} paints &mdash; not loaded</p>\n'
 
     html += '<div class="pan-grid">\n'
     row_order = {'top': 0, 'row1': 0, 'middle': 1, 'row2': 1, 'bottom': 2, 'row3': 2}
@@ -226,6 +240,13 @@ nav a:hover { color: #222; }
 .subtitle { color: #888; font-size: 0.9rem; margin-bottom: 2rem; }
 section { margin-bottom: 3rem; }
 
+/* Plan badge */
+.plan-badge { display: inline-block; font-size: 0.65rem; font-weight: 500; background: #ede8e0; color: #999; border-radius: 3px; padding: 0.1rem 0.4rem; margin-left: 0.5rem; vertical-align: middle; text-transform: uppercase; letter-spacing: 0.04em; }
+.palette-plan .pan { background: #faf8f5; border-color: #e8e4df; color: #888; }
+.palette-plan .pan-name { color: #aaa; }
+.palette-plan .pan-brand { color: #bbb; }
+.palette-plan .pan-pigments { color: #bbb; }
+
 /* Palette pan grid */
 .palette-meta { color: #888; font-size: 0.85rem; margin-bottom: 1rem; }
 .pan-grid { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.5rem; }
@@ -294,7 +315,7 @@ function applyFilters() {
 '''
 
 
-def build(inventory, palettes, containers):
+def build(inventory, palettes, containers, loadouts):
     notes = load_notes()
     used_ids = palette_paints_used(palettes)
 
@@ -314,9 +335,10 @@ def build(inventory, palettes, containers):
         if name not in palettes:
             continue
         rows = palettes[name]
-        container_id = rows[0].get('container_id', '') if rows else ''
-        container = containers.get(container_id)
-        body += render_palette(name, rows, inventory, container)
+        container_id = loadouts.get(name)
+        container = containers.get(container_id) if container_id else None
+        loaded = name in loadouts
+        body += render_palette(name, rows, inventory, container, loaded)
 
         # Look for matching notes file
         notes_key = f'{name}-palette'
@@ -420,7 +442,7 @@ h2:first-child { margin-top: 0; }
 '''
 
 
-def build_labels(inventory, palettes, containers):
+def build_labels(inventory, palettes, containers, loadouts):
     palette_order = ['default', 'garden', 'urban-sketch', 'cfm-floral']
     palette_order += [k for k in palettes if k not in palette_order]
 
@@ -429,8 +451,8 @@ def build_labels(inventory, palettes, containers):
         if name not in palettes:
             continue
         rows = palettes[name]
-        container_id = rows[0].get('container_id', '') if rows else ''
-        container = containers.get(container_id, {})
+        container_id = loadouts.get(name)
+        container = containers.get(container_id, {}) if container_id else {}
         container_name = container.get('name', '')
 
         label = name.replace('-', ' ').title()
@@ -503,5 +525,6 @@ if __name__ == '__main__':
     inventory = load_inventory()
     palettes = load_palettes()
     containers = load_containers()
-    build(inventory, palettes, containers)
-    build_labels(inventory, palettes, containers)
+    loadouts = load_loadouts()
+    build(inventory, palettes, containers, loadouts)
+    build_labels(inventory, palettes, containers, loadouts)
