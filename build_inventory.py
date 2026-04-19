@@ -229,6 +229,9 @@ if __name__ == '__main__':
     pigment_index = load_pigment_index()
     paints, added = merge(paints, manual)
     assign_hue_categories(paints, pigment_index)
+    for p in paints:
+        if p['hue_category']:
+            p['hue_category'] = p['hue_category'].title()
     write_csv(paints)
     print(f"Wrote {len(paints)} paints to {OUT}")
     if added:
