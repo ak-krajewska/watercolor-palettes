@@ -3,16 +3,6 @@
 ## Container
 Szmal Small (12 slots). Darks at far edges of each row — Dioxazine Violet at row 1 end, Burnt Umber at row 2 end. Earths together on row 2 right side, separated from Cad Yellow to avoid confusion.
 
-## Layout
-
-| Row 1 | | | | | |
-|---|---|---|---|---|---|
-| White gouache | Cad Yellow | Quin Magenta | Cad Red | Pyrrole Red | **Diox Violet** |
-
-| Row 2 | | | | | |
-|---|---|---|---|---|---|
-| Cobalt Cerulean | Phthalo Green | Bamboo Green | Yellow Ochre | Burnt Sienna | **Burnt Umber** |
-
 ## Purpose
 Garden botanical paintings at home. Succulents, California natives, sages, geranium, thyme varieties, calla lilies, manzanita, grasses. Focus on solving the green range problem that the default palette doesn't address.
 

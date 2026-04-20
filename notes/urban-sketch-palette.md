@@ -3,20 +3,7 @@
 ## Container
 CfM Yellow (12 slots, 3 rows of 4). Only 8 pans — rows 1 and 3 filled, middle row deliberately empty. Constraint is intentional.
 
-## Layout
-
-| Row 1 | | | |
-|---|---|---|---|
-| Indian Yellow | Yellow Ochre | Burnt Sienna | **Dioxazine Violet** |
-
-| Row 2 | | | |
-|---|---|---|---|
-| *(empty)* | *(empty)* | *(empty)* | *(empty)* |
-
-| Row 3 | | | |
-|---|---|---|---|
-| Opera | Cherry Blossom Pink | Davy's Grey | **Prussian Blue** |
-
+## Layout Logic
 Stainers at far edges. Warm-to-dark on row 1. Atmospheric/unusual on row 3.
 
 ## Purpose
