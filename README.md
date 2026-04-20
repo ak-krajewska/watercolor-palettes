@@ -1,33 +1,43 @@
 # Watercolor Palettes
 
-A personal palette planning tool built around a CSV inventory exported from [artistpigments.org](https://artistpigments.org).
+A personal palette planning tool built around an inventory exported from [artistpigments.org](https://artistpigments.org).
 
 ## How it works
 
-The project has two source files you maintain, two scripts that process them, and two HTML outputs you use.
+The project has three source files you maintain, two scripts that process them, a SQLite database, and two HTML outputs you use.
 
 ```
 paints-inventory.xlsx      ← download fresh from artistpigments when you add paints
 paints-manual-notes.csv    ← hand-maintained: hue categories, alt names, 3 uncatalogued CfM paints
 pigment-index.csv          ← Handprint-derived pigment→color family reference
 
-build_inventory.py         ← merges sources into data/inventory.csv
-build_html.py              ← generates index.html and labels.html
+build_inventory.py         ← merges sources into data/paints.db (paints table)
+build_html.py              ← generates index.html and labels.html from paints.db
 
-data/inventory.csv         ← merged master paint list (72 paints)
-data/palettes.csv          ← palette definitions
-data/containers.csv        ← physical palette boxes
+data/paints.db             ← SQLite database (all data: paints, palettes, containers, loadouts)
 
 index.html                 ← open in browser: palette viewer + filterable inventory
 labels.html                ← open in browser, print: pan-sized swatch labels
 notes/                     ← markdown notes on each palette
 ```
 
+## Database tables
+
+`data/paints.db` contains five tables:
+
+- **paints** — rebuilt from xlsx + manual notes on each run (72 paints)
+- **palette_names** — list of valid palette names
+- **palettes** — one row per paint per palette, with row/position for physical layout
+- **containers** — physical palette boxes (slot count, pan orientation)
+- **loadouts** — which palette lives in which container
+
+The `paints` table is regenerated every time you run `build_inventory.py`. The other four tables are hand-curated in the database and preserved across runs.
+
 ## Updating after buying new paints
 
 1. Add the new paint to your collection on [artistpigments.org](https://artistpigments.org)
 2. Download a fresh export (xlsx) and replace `paints-inventory.xlsx`
-3. Run `python3 build_inventory.py` — it will merge your manual notes and flag any broken palette references
+3. Run `python3 build_inventory.py` — it will merge your manual notes and check foreign key integrity
 4. Run `python3 build_html.py` to regenerate the HTML
 
 If the new paint is a CfM color not on artistpigments, add it to `paints-manual-notes.csv` instead.
@@ -36,17 +46,24 @@ If the new paint has a pigment code not in `pigment-index.csv`, add it there (fo
 
 ## Adding or editing a palette
 
-Edit `data/palettes.csv` directly. One row per paint per palette.
+Edit the database directly with `sqlite3 data/paints.db`:
 
-Columns: `palette_name, container_id, paint_id, color_name, row, position, notes`
+```sql
+-- Add a new palette name
+INSERT INTO palette_names VALUES ('my-new-palette');
 
-- `container_id` must match an id in `data/containers.csv`
-- `paint_id` must match an id in `data/inventory.csv`
+-- Add a paint to a palette
+INSERT INTO palettes (palette_name, paint_id, color_name, row, position)
+VALUES ('my-new-palette', 'g7gsr', 'Cadmium Yellow', 'row1', 1);
+```
+
+- `palette_name` must exist in `palette_names`
+- `paint_id` must match an id in `paints`
 - `row` values: `top/bottom` (for 2-row palettes) or `row1/row2/row3` (for 3-row palettes)
 - `position` is the slot number within the row, left to right
 - Slots are a maximum, not a target — leave gaps intentionally
 
-After editing, run `python3 build_inventory.py` to validate references, then `python3 build_html.py` to regenerate.
+After editing, run `python3 build_html.py` to regenerate.
 
 ## Adding palette notes
 
