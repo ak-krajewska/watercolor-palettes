@@ -1,25 +1,35 @@
 #!/usr/bin/env python3
 """
-Rebuild data/inventory.csv from source files.
+Rebuild the paints table in data/paints.db from source files.
 
 Run this whenever you download a fresh paints-inventory.xlsx from artistpigments.org.
 Manual additions (paints-manual-notes.csv) are merged in automatically.
 
+On first run (or with --seed-from-csv), the containers, palettes, and loadouts
+tables are seeded from the CSV files in data/. After that, those tables are
+hand-curated in the database and not overwritten.
+
 Usage:
-    python3 build_inventory.py
+    python3 build_inventory.py              # rebuild paints table only
+    python3 build_inventory.py --seed-from-csv  # also (re)seed curated tables from CSVs
 """
 
-import openpyxl, csv, re
+import openpyxl, csv, re, sqlite3, sys
 from pathlib import Path
 
 BASE = Path(__file__).parent
 XLSX = BASE / 'paints-inventory.xlsx'
 MANUAL_CSV = BASE / 'paints-manual-notes.csv'
 PIGMENT_INDEX = BASE / 'pigment-index.csv'
-OUT = BASE / 'data' / 'inventory.csv'
+DB = BASE / 'data' / 'paints.db'
 PALETTES_CSV = BASE / 'data' / 'palettes.csv'
 CONTAINERS_CSV = BASE / 'data' / 'containers.csv'
 LOADOUTS_CSV = BASE / 'data' / 'loadouts.csv'
+
+PAINTS_FIELDS = ['id', 'color_name', 'brand', 'manufacturer_code', 'medium', 'hue_category',
+                 'transparency', 'granulation', 'staining', 'lightfastness', 'astm_lightfastness',
+                 'pigments', 'single_pigment', 'pigment_known', 'alt_names', 'source', 'notes']
+
 
 def norm_name(s):
     """Normalize color name: strip leading 'CfM ' brand prefix, lowercase, alphanumeric only."""
@@ -166,64 +176,135 @@ def merge(paints, manual_rows):
     return paints, added
 
 
-FIELDS = ['id', 'color_name', 'brand', 'manufacturer_code', 'medium', 'hue_category',
-          'transparency', 'granulation', 'staining', 'lightfastness', 'astm_lightfastness',
-          'pigments', 'single_pigment', 'pigment_known', 'alt_names', 'source', 'notes']
+def init_db(conn):
+    """Create all tables if they don't exist."""
+    conn.executescript('''
+        CREATE TABLE IF NOT EXISTS paints (
+            id TEXT PRIMARY KEY,
+            color_name TEXT NOT NULL,
+            brand TEXT,
+            manufacturer_code TEXT,
+            medium TEXT,
+            hue_category TEXT,
+            transparency TEXT,
+            granulation TEXT,
+            staining TEXT,
+            lightfastness TEXT,
+            astm_lightfastness TEXT,
+            pigments TEXT,
+            single_pigment TEXT,
+            pigment_known TEXT,
+            alt_names TEXT,
+            source TEXT,
+            notes TEXT
+        );
+
+        CREATE TABLE IF NOT EXISTS containers (
+            id TEXT PRIMARY KEY,
+            name TEXT NOT NULL,
+            brand TEXT,
+            max_slots INTEGER,
+            portability TEXT,
+            pan_orientation TEXT,
+            notes TEXT
+        );
+
+        CREATE TABLE IF NOT EXISTS palette_names (
+            name TEXT PRIMARY KEY
+        );
+
+        CREATE TABLE IF NOT EXISTS palettes (
+            palette_name TEXT NOT NULL REFERENCES palette_names(name),
+            paint_id TEXT NOT NULL REFERENCES paints(id),
+            color_name TEXT,
+            row TEXT,
+            position INTEGER,
+            notes TEXT,
+            PRIMARY KEY (palette_name, paint_id)
+        );
+
+        CREATE TABLE IF NOT EXISTS loadouts (
+            palette_name TEXT NOT NULL REFERENCES palette_names(name),
+            container_id TEXT NOT NULL REFERENCES containers(id),
+            PRIMARY KEY (palette_name)
+        );
+    ''')
 
 
-def write_csv(paints):
-    with open(OUT, 'w', newline='') as f:
-        w = csv.DictWriter(f, fieldnames=FIELDS, extrasaction='ignore')
-        w.writeheader()
-        w.writerows(paints)
+def write_paints(conn, paints):
+    """Delete and rebuild the paints table from source data."""
+    conn.execute('DELETE FROM paints')
+    placeholders = ', '.join(['?'] * len(PAINTS_FIELDS))
+    conn.executemany(
+        f'INSERT INTO paints ({", ".join(PAINTS_FIELDS)}) VALUES ({placeholders})',
+        [[p[f] for f in PAINTS_FIELDS] for p in paints]
+    )
 
 
-def check_palette_refs(paints):
-    """Warn if palettes or loadouts reference IDs that don't exist."""
-    if not PALETTES_CSV.exists():
-        return
+def seed_from_csv(conn):
+    """Seed the curated tables (containers, palettes, loadouts) from CSV files."""
+    seeded = []
 
-    inventory_ids = {p['id'] for p in paints}
-    container_ids = set()
     if CONTAINERS_CSV.exists():
+        conn.execute('DELETE FROM containers')
         with open(CONTAINERS_CSV) as f:
-            container_ids = {row['id'] for row in csv.DictReader(f)}
+            rows = list(csv.DictReader(f))
+        for row in rows:
+            conn.execute(
+                'INSERT INTO containers (id, name, brand, max_slots, portability, pan_orientation, notes) '
+                'VALUES (?, ?, ?, ?, ?, ?, ?)',
+                (row['id'], row['name'], row['brand'],
+                 int(row['max_slots']) if row.get('max_slots') else None,
+                 row.get('portability', ''), row.get('pan_orientation', ''), row.get('notes', ''))
+            )
+        seeded.append(f'containers ({len(rows)})')
 
-    palette_names = set()
-    broken_paints = []
-    with open(PALETTES_CSV) as f:
-        for row in csv.DictReader(f):
-            palette_names.add(row['palette_name'])
-            if row['paint_id'] not in inventory_ids:
-                broken_paints.append((row['palette_name'], row['paint_id'], row['color_name']))
+    if PALETTES_CSV.exists():
+        conn.execute('DELETE FROM palettes')
+        conn.execute('DELETE FROM palette_names')
+        with open(PALETTES_CSV) as f:
+            rows = list(csv.DictReader(f))
+        # Extract and insert distinct palette names first
+        names = sorted(set(row['palette_name'] for row in rows))
+        for name in names:
+            conn.execute('INSERT INTO palette_names (name) VALUES (?)', (name,))
+        for row in rows:
+            conn.execute(
+                'INSERT INTO palettes (palette_name, paint_id, color_name, row, position, notes) '
+                'VALUES (?, ?, ?, ?, ?, ?)',
+                (row['palette_name'], row['paint_id'], row.get('color_name', ''),
+                 row.get('row', ''),
+                 int(row['position']) if row.get('position') else None,
+                 row.get('notes', ''))
+            )
+        seeded.append(f'palette_names ({len(names)}), palettes ({len(rows)})')
 
-    broken_loadout_palettes = []
-    broken_loadout_containers = []
     if LOADOUTS_CSV.exists():
+        conn.execute('DELETE FROM loadouts')
         with open(LOADOUTS_CSV) as f:
-            for row in csv.DictReader(f):
-                if row['palette_name'] not in palette_names:
-                    broken_loadout_palettes.append(row['palette_name'])
-                if row['container_id'] not in container_ids:
-                    broken_loadout_containers.append((row['palette_name'], row['container_id']))
+            rows = list(csv.DictReader(f))
+        for row in rows:
+            conn.execute(
+                'INSERT INTO loadouts (palette_name, container_id) VALUES (?, ?)',
+                (row['palette_name'], row['container_id'])
+            )
+        seeded.append(f'loadouts ({len(rows)})')
 
-    if broken_paints:
-        print("WARNING: palette entries with no matching inventory ID:")
-        for palette, pid, name in broken_paints:
-            print(f"  [{palette}] {pid}  {name}")
-    if broken_loadout_palettes:
-        print("WARNING: loadouts reference unknown palettes:")
-        for name in broken_loadout_palettes:
-            print(f"  {name}")
-    if broken_loadout_containers:
-        print("WARNING: loadouts reference unknown containers:")
-        for palette, cid in broken_loadout_containers:
-            print(f"  [{palette}] container '{cid}' not in containers.csv")
-    if not broken_paints and not broken_loadout_palettes and not broken_loadout_containers:
-        print("Palette references OK.")
+    return seeded
+
+
+def tables_empty(conn):
+    """Check if the curated tables have no data (need initial seeding)."""
+    for table in ('containers', 'palette_names', 'palettes', 'loadouts'):
+        count = conn.execute(f'SELECT COUNT(*) FROM {table}').fetchone()[0]
+        if count > 0:
+            return False
+    return True
 
 
 if __name__ == '__main__':
+    do_seed = '--seed-from-csv' in sys.argv
+
     paints = load_xlsx()
     manual = load_manual()
     pigment_index = load_pigment_index()
@@ -232,10 +313,40 @@ if __name__ == '__main__':
     for p in paints:
         if p['hue_category']:
             p['hue_category'] = p['hue_category'].title()
-    write_csv(paints)
-    print(f"Wrote {len(paints)} paints to {OUT}")
+
+    conn = sqlite3.connect(DB)
+    # Keep foreign keys OFF during writes so we can rebuild the paints
+    # table without needing to delete/restore palette references.
+    # We validate with PRAGMA foreign_key_check after committing.
+    init_db(conn)
+
+    # Write paints first -- palettes reference them via foreign key
+    write_paints(conn, paints)
+
+    # Seed curated tables on first run or when explicitly requested
+    if do_seed or tables_empty(conn):
+        seeded = seed_from_csv(conn)
+        if seeded:
+            print(f"Seeded from CSV: {', '.join(seeded)}")
+
+    conn.commit()
+
+    count = conn.execute('SELECT COUNT(*) FROM paints').fetchone()[0]
+    print(f"Wrote {count} paints to {DB}")
     if added:
         print(f"Added from manual (not on artistpigments): {', '.join(added)}")
-    missing_hue = [p['color_name'] for p in paints if not p['hue_category']]
-    print(f"Paints without hue category: {len(missing_hue)}")
-    check_palette_refs(paints)
+    missing_hue = conn.execute(
+        "SELECT COUNT(*) FROM paints WHERE hue_category = '' OR hue_category IS NULL"
+    ).fetchone()[0]
+    print(f"Paints without hue category: {missing_hue}")
+
+    # Check foreign key integrity
+    fk_errors = conn.execute('PRAGMA foreign_key_check').fetchall()
+    if fk_errors:
+        print(f"WARNING: {len(fk_errors)} foreign key violations found:")
+        for table, rowid, ref_table, fk_idx in fk_errors:
+            print(f"  {table} rowid={rowid} -> {ref_table}")
+    else:
+        print("Foreign key references OK.")
+
+    conn.close()
