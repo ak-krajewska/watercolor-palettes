@@ -6,10 +6,6 @@ A floral palette built around CfM Handmade Watercolors, originally based on CfM'
 
 **Status: retired / reference.** Didn't perform as well as hoped. Useful as a starting point for designing a better botanical palette.
 
-## The Paints
-
-Poppy, French Vermilion, Coral, Fuchsia, Lavender Blue Lake, Lupine, Ultramarine Pink, Hot Pink, Oxalis, Meadow, Tide Pool, Cypress Green — all CfM.
-
 ## What Didn't Work
 
 **French Vermilion isn't a good substitute for Cadmium Red.** CfM avoids cadmium colors, and the palette reflects that — but the Vermilion (PR4+PY1) just doesn't perform the same way. Cad Red has a brilliance and thinning quality that French Vermilion doesn't match.
