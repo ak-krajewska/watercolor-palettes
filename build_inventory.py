@@ -209,8 +209,12 @@ def init_db(conn):
             notes TEXT
         );
 
+        CREATE TABLE IF NOT EXISTS palette_names (
+            name TEXT PRIMARY KEY
+        );
+
         CREATE TABLE IF NOT EXISTS palettes (
-            palette_name TEXT NOT NULL,
+            palette_name TEXT NOT NULL REFERENCES palette_names(name),
             paint_id TEXT NOT NULL REFERENCES paints(id),
             color_name TEXT,
             row TEXT,
@@ -220,7 +224,7 @@ def init_db(conn):
         );
 
         CREATE TABLE IF NOT EXISTS loadouts (
-            palette_name TEXT NOT NULL,
+            palette_name TEXT NOT NULL REFERENCES palette_names(name),
             container_id TEXT NOT NULL REFERENCES containers(id),
             PRIMARY KEY (palette_name)
         );
@@ -257,8 +261,13 @@ def seed_from_csv(conn):
 
     if PALETTES_CSV.exists():
         conn.execute('DELETE FROM palettes')
+        conn.execute('DELETE FROM palette_names')
         with open(PALETTES_CSV) as f:
             rows = list(csv.DictReader(f))
+        # Extract and insert distinct palette names first
+        names = sorted(set(row['palette_name'] for row in rows))
+        for name in names:
+            conn.execute('INSERT INTO palette_names (name) VALUES (?)', (name,))
         for row in rows:
             conn.execute(
                 'INSERT INTO palettes (palette_name, paint_id, color_name, row, position, notes) '
@@ -268,7 +277,7 @@ def seed_from_csv(conn):
                  int(row['position']) if row.get('position') else None,
                  row.get('notes', ''))
             )
-        seeded.append(f'palettes ({len(rows)})')
+        seeded.append(f'palette_names ({len(names)}), palettes ({len(rows)})')
 
     if LOADOUTS_CSV.exists():
         conn.execute('DELETE FROM loadouts')
@@ -286,7 +295,7 @@ def seed_from_csv(conn):
 
 def tables_empty(conn):
     """Check if the curated tables have no data (need initial seeding)."""
-    for table in ('containers', 'palettes', 'loadouts'):
+    for table in ('containers', 'palette_names', 'palettes', 'loadouts'):
         count = conn.execute(f'SELECT COUNT(*) FROM {table}').fetchone()[0]
         if count > 0:
             return False
