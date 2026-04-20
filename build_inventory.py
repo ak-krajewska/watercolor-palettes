@@ -315,7 +315,9 @@ if __name__ == '__main__':
             p['hue_category'] = p['hue_category'].title()
 
     conn = sqlite3.connect(DB)
-    conn.execute('PRAGMA foreign_keys = ON')
+    # Keep foreign keys OFF during writes so we can rebuild the paints
+    # table without needing to delete/restore palette references.
+    # We validate with PRAGMA foreign_key_check after committing.
     init_db(conn)
 
     # Write paints first -- palettes reference them via foreign key
