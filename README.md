@@ -31,6 +31,61 @@ notes/                     ← markdown notes on each palette
 - **containers** — physical palette boxes (slot count, pan orientation)
 - **loadouts** — which palette lives in which container
 
+```mermaid
+erDiagram
+    paints {
+        text id PK
+        text color_name
+        text brand
+        text manufacturer_code
+        text medium
+        text hue_category
+        text transparency
+        text granulation
+        text staining
+        text lightfastness
+        text astm_lightfastness
+        text pigments
+        text single_pigment
+        text pigment_known
+        text alt_names
+        text source
+        text notes
+    }
+
+    palette_names {
+        text name PK
+    }
+
+    palettes {
+        text palette_name PK, FK
+        text paint_id PK, FK
+        text color_name
+        text row
+        integer position
+    }
+
+    containers {
+        text id PK
+        text name
+        text brand
+        integer max_slots
+        text portability
+        text pan_orientation
+        text notes
+    }
+
+    loadouts {
+        text palette_name PK, FK
+        text container_id FK
+    }
+
+    palette_names ||--o{ palettes : "name"
+    paints ||--o{ palettes : "id"
+    palette_names ||--o| loadouts : "name"
+    containers ||--o| loadouts : "id"
+```
+
 The `paints` table is regenerated every time you run `build_inventory.py`. The other four tables are hand-curated in the database and preserved across runs.
 
 ## Updating after buying new paints
