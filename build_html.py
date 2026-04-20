@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Generate index.html from palette and inventory data.
+Generate index.html from palette and inventory data stored in SQLite.
 
 Run after build_inventory.py to regenerate the HTML view.
 
@@ -8,52 +8,52 @@ Usage:
     python3 build_html.py
 """
 
-import csv
+import sqlite3
 import markdown
 from pathlib import Path
 from collections import defaultdict
 
 BASE = Path(__file__).parent
 DATA = BASE / 'data'
+DB = DATA / 'paints.db'
 NOTES = BASE / 'notes'
 OUT = BASE / 'index.html'
 OUT_LABELS = BASE / 'labels.html'
 
 
-def load_csv(path):
-    with open(path) as f:
-        return list(csv.DictReader(f))
+def get_conn():
+    conn = sqlite3.connect(DB)
+    conn.row_factory = sqlite3.Row
+    return conn
 
 
-def load_inventory():
+def load_inventory(conn):
     paints = {}
-    for row in load_csv(DATA / 'inventory.csv'):
-        paints[row['id']] = row
+    for row in conn.execute('SELECT * FROM paints'):
+        paints[row['id']] = dict(row)
     return paints
 
 
-def load_palettes():
+def load_palettes(conn):
     """Returns dict of palette_name -> list of rows, in order."""
     palettes = defaultdict(list)
-    for row in load_csv(DATA / 'palettes.csv'):
-        palettes[row['palette_name']].append(row)
+    for row in conn.execute('SELECT * FROM palettes ORDER BY palette_name, position'):
+        palettes[row['palette_name']].append(dict(row))
     return palettes
 
 
-def load_loadouts():
+def load_loadouts(conn):
     """Returns dict of palette_name -> container_id for loaded palettes."""
     loadouts = {}
-    path = DATA / 'loadouts.csv'
-    if path.exists():
-        for row in load_csv(path):
-            loadouts[row['palette_name']] = row['container_id']
+    for row in conn.execute('SELECT * FROM loadouts'):
+        loadouts[row['palette_name']] = row['container_id']
     return loadouts
 
 
-def load_containers():
+def load_containers(conn):
     containers = {}
-    for row in load_csv(DATA / 'containers.csv'):
-        containers[row['id']] = row
+    for row in conn.execute('SELECT * FROM containers'):
+        containers[row['id']] = dict(row)
     return containers
 
 
@@ -137,7 +137,7 @@ def render_palette(name, rows, inventory, container, loaded):
     return html
 
 
-def render_inventory(inventory, used_ids):
+def render_inventory(conn, inventory, used_ids):
     brands = sorted(set(p['brand'] for p in inventory.values()))
     hues = sorted(set(p['hue_category'] for p in inventory.values() if p['hue_category']))
 
@@ -188,15 +188,14 @@ def render_inventory(inventory, used_ids):
 </thead>
 <tbody>\n'''
 
-    # Build palette membership lookup
-    palette_rows = load_csv(DATA / 'palettes.csv')
+    # Build palette membership lookup from database
     paint_palettes = defaultdict(list)
-    for row in palette_rows:
+    for row in conn.execute('SELECT palette_name, paint_id FROM palettes'):
         paint_palettes[row['paint_id']].append(row['palette_name'])
 
     for pid, p in sorted(inventory.items(), key=lambda x: x[1]['color_name']):
         unused_class = '' if pid in used_ids else ' unused'
-        palettes_str = ', '.join(sorted(set(paint_palettes[pid]))) if pid in paint_palettes else '—'
+        palettes_str = ', '.join(sorted(set(paint_palettes[pid]))) if pid in paint_palettes else '\u2014'
         brand_short = (p['brand']
             .replace("Winsor & Newton Professional Water Colour [2013-]", "W&N")
             .replace("Holbein Artists' Watercolor (HWC)", "Holbein")
@@ -315,7 +314,7 @@ function applyFilters() {
 '''
 
 
-def build(inventory, palettes, containers, loadouts):
+def build(conn, inventory, palettes, containers, loadouts):
     notes = load_notes()
     used_ids = palette_paints_used(palettes)
 
@@ -346,7 +345,7 @@ def build(inventory, palettes, containers, loadouts):
             body += f'<div class="palette-notes">{notes[notes_key]}</div>\n'
         body += '\n'
 
-    body += render_inventory(inventory, used_ids)
+    body += render_inventory(conn, inventory, used_ids)
 
     # Notes files not matched to a palette
     matched = {f'{n}-palette' for n in palette_order}
@@ -457,7 +456,7 @@ def build_labels(inventory, palettes, containers, loadouts):
 
         label = name.replace('-', ' ').title()
         if container_name:
-            label += f' — {container_name}'
+            label += f' \u2014 {container_name}'
         body += f'<div class="palette-section">\n<h2>{label}</h2>\n'
 
         orientation = container.get('pan_orientation', 'portrait')
@@ -522,9 +521,11 @@ def build_labels(inventory, palettes, containers, loadouts):
 
 
 if __name__ == '__main__':
-    inventory = load_inventory()
-    palettes = load_palettes()
-    containers = load_containers()
-    loadouts = load_loadouts()
-    build(inventory, palettes, containers, loadouts)
+    conn = get_conn()
+    inventory = load_inventory(conn)
+    palettes = load_palettes(conn)
+    containers = load_containers(conn)
+    loadouts = load_loadouts(conn)
+    build(conn, inventory, palettes, containers, loadouts)
     build_labels(inventory, palettes, containers, loadouts)
+    conn.close()
