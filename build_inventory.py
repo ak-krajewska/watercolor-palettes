@@ -219,7 +219,6 @@ def init_db(conn):
             color_name TEXT,
             row TEXT,
             position INTEGER,
-            notes TEXT,
             PRIMARY KEY (palette_name, paint_id)
         );
 
@@ -270,12 +269,11 @@ def seed_from_csv(conn):
             conn.execute('INSERT INTO palette_names (name) VALUES (?)', (name,))
         for row in rows:
             conn.execute(
-                'INSERT INTO palettes (palette_name, paint_id, color_name, row, position, notes) '
-                'VALUES (?, ?, ?, ?, ?, ?)',
+                'INSERT INTO palettes (palette_name, paint_id, color_name, row, position) '
+                'VALUES (?, ?, ?, ?, ?)',
                 (row['palette_name'], row['paint_id'], row.get('color_name', ''),
                  row.get('row', ''),
-                 int(row['position']) if row.get('position') else None,
-                 row.get('notes', ''))
+                 int(row['position']) if row.get('position') else None)
             )
         seeded.append(f'palette_names ({len(names)}), palettes ({len(rows)})')
 

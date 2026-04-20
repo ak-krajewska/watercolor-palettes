@@ -109,7 +109,6 @@ def render_palette(name, rows, inventory, container, loaded):
             brand = paint.get('brand') or ''
             manufacturer_code = paint.get('manufacturer_code') or ''
             pigments = paint.get('pigments') or ''
-            notes = entry.get('notes') or ''
 
             # Shorten brand for display
             brand_short = (brand
@@ -128,8 +127,6 @@ def render_palette(name, rows, inventory, container, loaded):
             html += f'<div class="pan-brand">{brand_short}</div>\n'
             if pigments:
                 html += f'<div class="pan-pigments">{pigments}</div>\n'
-            if notes:
-                html += f'<div class="pan-notes">{notes}</div>\n'
             html += '</div>\n'
         html += '</div>\n'
     html += '</div>\n'
@@ -261,7 +258,6 @@ section { margin-bottom: 3rem; }
 .pan-name { font-weight: 600; font-size: 0.85rem; line-height: 1.3; }
 .pan-brand { color: #888; font-size: 0.75rem; margin-top: 0.2rem; }
 .pan-pigments { color: #555; font-size: 0.72rem; margin-top: 0.25rem; font-family: monospace; }
-.pan-notes { color: #e07030; font-size: 0.72rem; margin-top: 0.25rem; font-style: italic; }
 
 /* Palette notes */
 .palette-notes {
