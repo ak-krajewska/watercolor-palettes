@@ -21,9 +21,9 @@ The pen does description. The color does atmosphere. SF has two dominant light q
 
 **Burnt Sienna** — the cafe color. Coffee, wood tables, warm brick, skin. Finally earns its keep here — a cafe/urban context suits it better than landscape.
 
-**Dioxazine Violet** — SF building shadows read purple-blue. Mixed with Prussian Blue: deep cool shadows over pen lines. Mixed with Burnt Sienna: rich darks for interior scenes and coffee. Far edge, dangerously staining.
+**Dioxazine Violet** — SF building shadows read purple-blue. Mixed with French Ultramarine: deep luminous blue-purple shadows over pen lines — the two cooperate rather than fight. Mixed with Burnt Sienna: rich darks for interior scenes and coffee. Far edge, dangerously staining.
 
-**Opera** — ★☆☆☆ fugitive, and that's fine here. Fluorescent vivid pink/magenta unlike anything else in the collection. Finally in the right context — urban sketching ephemera. Someone's jacket, a food truck, a flower stall. Mixed with Indian Yellow: vivid warm orange. Mixed with Davy's Grey: strange dusty rose. Mixed with Prussian Blue: surprising violets. Will try to bleed everywhere — lean into it over pen work, rinse brush carefully.
+**Opera** — ★☆☆☆ fugitive, and that's fine here. Fluorescent vivid pink/magenta unlike anything else in the collection. Finally in the right context — urban sketching ephemera. Someone's jacket, a food truck, a flower stall. Mixed with Indian Yellow: vivid warm orange. Mixed with Davy's Grey: strange dusty rose. Mixed with French Ultramarine: deep violet, less surprising than it was with Prussian Blue but richer. Will try to bleed everywhere — lean into it over pen work, rinse brush carefully.
 
 **Cherry Blossom Pink** — the surprise pick. Soft granulating pink — the opposite of Opera's loudness. Cherry blossoms in Noe Valley, pink-toned Victorians, delicate skin tone washes, fog at magic hour. The granulation creates texture without effort. Use wet and give it room — don't fuss once it's down.
 
