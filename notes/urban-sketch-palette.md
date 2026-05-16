@@ -29,10 +29,10 @@ The pen does description. The color does atmosphere. SF has two dominant light q
 
 **Davy's Grey** — SF fog in a pan. Warm-leaning grey with enough color to not be dead. Architecture, concrete, asphalt, overcast sky. Slightly more opaque than a transparent wash — don't fight this, it's part of what makes it good for buildings.
 
-**Prussian Blue** — the urban blue. Darker and slightly greenish compared to Ultramarine — more industrial, suits city architecture, power lines, SF bay. Mixes good foliage greens with the yellows. Deep cool shadows with Dioxazine Violet. Will stain mixing wells fast. Far edge.
+**French Ultramarine** — the SF blue. Violet-biased rather than green, which is what this palette actually needs. Mixes directly with Dioxazine Violet for deep blue-purple shadows without fighting. Granulating, which adds atmospheric texture to sky and fog washes. With Burnt Sienna: rich naturalistic darks. With Indian Yellow: soft, muted atmospheric greens — not vivid, but suits the palette's mood-over-precision purpose. Staining; far edge.
 
 ## Colors to Watch
 - Opera will bleed. Rinse brush intentionally.
 - Davy's Grey is slightly opaque — don't overwork it.
 - Cherry Blossom Pink granulates — wet and leave it alone.
-- Prussian Blue stains everything quickly.
+- French Ultramarine stains — rinse well, far edge.
