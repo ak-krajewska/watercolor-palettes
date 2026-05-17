@@ -227,6 +227,14 @@ def init_db(conn):
             container_id TEXT NOT NULL REFERENCES containers(id),
             PRIMARY KEY (palette_name)
         );
+
+        CREATE TABLE IF NOT EXISTS pans (
+            id TEXT PRIMARY KEY,
+            paint_id TEXT NOT NULL REFERENCES paints(id),
+            container_id TEXT REFERENCES containers(id),
+            row TEXT,
+            position INTEGER
+        );
     ''')
 
 
