@@ -14,7 +14,7 @@ pigment-index.csv          ← Handprint-derived pigment→color family referenc
 build_inventory.py         ← merges sources into data/paints.db (paints table)
 build_html.py              ← generates index.html and labels.html from paints.db
 
-data/paints.db             ← SQLite database (all data: paints, palettes, containers, loadouts)
+data/paints.db             ← SQLite database (paints, palette_names, palettes, containers, loadouts, pans)
 
 index.html                 ← open in browser: palette viewer + filterable inventory
 labels.html                ← open in browser, print: pan-sized swatch labels
@@ -23,13 +23,14 @@ notes/                     ← markdown notes on each palette
 
 ## Database tables
 
-`data/paints.db` contains five tables:
+`data/paints.db` contains six tables. The data is split between *plan* (what a palette should contain) and *physical reality* (what's actually in each box right now):
 
 - **paints** — rebuilt from xlsx + manual notes on each run (72 paints)
 - **palette_names** — list of valid palette names
-- **palettes** — one row per paint per palette, with row/position for physical layout
+- **palettes** — one row per paint per palette, with row/position for the *planned* layout
 - **containers** — physical palette boxes (slot count, pan orientation)
 - **loadouts** — which palette lives in which container
+- **pans** — one row per physical half-pan, with `paint_id` and a nullable `container_id` (NULL = loose, not in any box)
 
 ```mermaid
 erDiagram
@@ -80,13 +81,23 @@ erDiagram
         text container_id FK
     }
 
+    pans {
+        text id PK
+        text paint_id FK
+        text container_id FK "nullable"
+        text row
+        integer position
+    }
+
     palette_names ||--o{ palettes : "name"
     paints ||--o{ palettes : "id"
     palette_names ||--o| loadouts : "name"
     containers ||--o| loadouts : "id"
+    paints ||--o{ pans : "id"
+    containers ||--o{ pans : "id"
 ```
 
-The `paints` table is regenerated every time you run `build_inventory.py`. The other four tables are hand-curated in the database and preserved across runs.
+The `paints` table is regenerated every time you run `build_inventory.py`. The other five tables are hand-curated in the database and preserved across runs.
 
 ## Updating after buying new paints
 
@@ -119,6 +130,28 @@ VALUES ('my-new-palette', 'g7gsr', 'Cadmium Yellow', 'row1', 1);
 - Slots are a maximum, not a target — leave gaps intentionally
 
 After editing, run `python3 build_html.py` to regenerate.
+
+## Managing pans
+
+The `pans` table is the *physical reality* — each row is a half-pan you actually own. The `palettes` table is the plan; `pans` is what's currently sitting in your boxes. For loaded palettes, the HTML viewer renders pan placement (reality), not the plan.
+
+Edit directly with `sqlite3 data/paints.db`:
+
+```sql
+-- Add a new loose pan
+INSERT INTO pans (id, paint_id, container_id, row, position)
+VALUES ('p047', 'g7gsr', NULL, NULL, NULL);
+
+-- Place a pan in a container
+UPDATE pans SET container_id = 'cfm_small', row = 'row2', position = 3
+WHERE id = 'p047';
+
+-- Move a pan out of a container (back to loose)
+UPDATE pans SET container_id = NULL, row = NULL, position = NULL
+WHERE id = 'p047';
+```
+
+Pan IDs are sequential strings (`p001`, `p002`, ...). Pick up from the current max.
 
 ## Adding palette notes
 

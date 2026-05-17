@@ -35,11 +35,34 @@ def load_inventory(conn):
 
 
 def load_palettes(conn):
-    """Returns dict of palette_name -> list of rows, in order."""
+    """Returns dict of palette_name -> list of rows, in order.
+
+    This reads the *planned* layout from `palettes`. Used for unloaded palettes
+    (which have no pans assigned to a container) and as the source of truth for
+    palette membership in the inventory cross-reference.
+    """
     palettes = defaultdict(list)
     for row in conn.execute('SELECT * FROM palettes ORDER BY palette_name, position'):
         palettes[row['palette_name']].append(dict(row))
     return palettes
+
+
+def load_pans_by_palette(conn):
+    """Returns dict of palette_name -> list of pan rows for *loaded* palettes.
+
+    Joins pans to loadouts via container_id, so only palettes with a loadout
+    appear here. Each row has paint_id, row, position -- the physical reality
+    of what's in the box right now.
+    """
+    by_palette = defaultdict(list)
+    query = (
+        'SELECT l.palette_name, p.paint_id, p.row, p.position '
+        'FROM pans p JOIN loadouts l ON l.container_id = p.container_id '
+        'ORDER BY l.palette_name, p.position'
+    )
+    for row in conn.execute(query):
+        by_palette[row['palette_name']].append(dict(row))
+    return by_palette
 
 
 def load_loadouts(conn):
@@ -310,7 +333,7 @@ function applyFilters() {
 '''
 
 
-def build(conn, inventory, palettes, containers, loadouts):
+def build(conn, inventory, palettes, pans_by_palette, containers, loadouts):
     notes = load_notes()
     used_ids = palette_paints_used(palettes)
 
@@ -329,10 +352,11 @@ def build(conn, inventory, palettes, containers, loadouts):
     for name in palette_order:
         if name not in palettes:
             continue
-        rows = palettes[name]
         container_id = loadouts.get(name)
         container = containers.get(container_id) if container_id else None
         loaded = name in loadouts
+        # Loaded palettes render from physical pan placement; unloaded from the plan.
+        rows = pans_by_palette[name] if loaded else palettes[name]
         body += render_palette(name, rows, inventory, container, loaded)
 
         # Look for matching notes file
@@ -437,7 +461,7 @@ h2:first-child { margin-top: 0; }
 '''
 
 
-def build_labels(inventory, palettes, containers, loadouts):
+def build_labels(inventory, palettes, pans_by_palette, containers, loadouts):
     palette_order = ['default', 'garden', 'urban-sketch', 'cfm-floral']
     palette_order += [k for k in palettes if k not in palette_order]
 
@@ -445,10 +469,11 @@ def build_labels(inventory, palettes, containers, loadouts):
     for name in palette_order:
         if name not in palettes:
             continue
-        rows = palettes[name]
         container_id = loadouts.get(name)
         container = containers.get(container_id, {}) if container_id else {}
         container_name = container.get('name', '')
+        loaded = name in loadouts
+        rows = pans_by_palette[name] if loaded else palettes[name]
 
         label = name.replace('-', ' ').title()
         if container_name:
@@ -520,8 +545,9 @@ if __name__ == '__main__':
     conn = get_conn()
     inventory = load_inventory(conn)
     palettes = load_palettes(conn)
+    pans_by_palette = load_pans_by_palette(conn)
     containers = load_containers(conn)
     loadouts = load_loadouts(conn)
-    build(conn, inventory, palettes, containers, loadouts)
-    build_labels(inventory, palettes, containers, loadouts)
+    build(conn, inventory, palettes, pans_by_palette, containers, loadouts)
+    build_labels(inventory, palettes, pans_by_palette, containers, loadouts)
     conn.close()
